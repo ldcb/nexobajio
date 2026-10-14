@@ -1,0 +1,114 @@
+/*
+ * MOVIMIENTO. Todas las reglas que ocultan o mueven contenido dependen de .motion-ok,
+ * clase que el script del <head> añade solo si el sistema no pide movimiento reducido.
+ * Si JavaScript falla, .motion-ok se retira al cargar y todo queda visible.
+ * Animamos translate, scale y opacity: son baratos y no recalculan el diseño.
+ * translate/scale son propiedades independientes de transform, así no chocan con :hover.
+ */
+
+/* ==================== FOTOGRAMAS CLAVE ==================== */
+@keyframes rise-in {
+  from { opacity: 0; translate: 0 2rem; }
+  to { opacity: 1; translate: none; }
+}
+@keyframes zoom-in {
+  from { opacity: 0; scale: 0.94; }
+  to { opacity: 1; scale: none; }
+}
+@keyframes pop-in {
+  from { opacity: 0; scale: 0.7; }
+  to { opacity: 1; scale: none; }
+}
+@keyframes fade-down {
+  from { opacity: 0; translate: 0 -0.5rem; }
+  to { opacity: 1; translate: none; }
+}
+@keyframes float {
+  50% { translate: 0 -0.6rem; }
+}
+/* Las órbitas ya usan transform para centrarse; lo repetimos para sumar el giro. */
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes pulse-ring {
+  from { box-shadow: 0 0 0 0 rgb(20 184 166 / 55%); }
+  to { box-shadow: 0 0 0 0.6rem rgb(20 184 166 / 0%); }
+}
+
+/* ==================== ENTRADA DEL HERO (al cargar) ==================== */
+.motion-ok .hero-content > * {
+  animation: rise-in 1s var(--ease-out) both;
+}
+.motion-ok .hero-content > :nth-child(2) { animation-delay: 100ms; }
+.motion-ok .hero-content > :nth-child(3) { animation-delay: 200ms; }
+.motion-ok .hero-content > :nth-child(4) { animation-delay: 300ms; }
+.motion-ok .hero-content > :nth-child(5) { animation-delay: 400ms; }
+.motion-ok .hero-visual {
+  animation: zoom-in 1.2s var(--ease-out) 200ms both;
+}
+.motion-ok .hero-visual > img {
+  animation: float 7s ease-in-out 1.4s infinite;
+}
+.motion-ok .visual-caption {
+  animation: rise-in 0.9s var(--ease-out) 700ms both;
+}
+.motion-ok .hero-bottom {
+  animation: rise-in 1s var(--ease-out) 600ms both;
+}
+.motion-ok .status-dot {
+  animation: pulse-ring 2s ease-out infinite;
+}
+/* Parallax suave: ScrollController escribe --parallax; en móvil no lo aplicamos. */
+@media (min-width: 48rem) {
+  .hero-visual { transform: translateY(var(--parallax, 0)); }
+}
+
+/* ==================== REVELADO AL HACER SCROLL ==================== */
+/* data-reveal: un bloque aparece al entrar en pantalla. El valor elige la dirección. */
+.motion-ok [data-reveal] {
+  opacity: 0;
+  translate: 0 2.5rem;
+  transition: opacity 900ms var(--ease-out), translate 900ms var(--ease-out), scale 900ms var(--ease-out);
+}
+.motion-ok [data-reveal="left"] { translate: -3rem 0; }
+.motion-ok [data-reveal="right"] { translate: 3rem 0; }
+.motion-ok [data-reveal="zoom"] { translate: none; scale: 0.9; }
+.motion-ok [data-reveal].is-revealed {
+  opacity: 1;
+  translate: none;
+  scale: none;
+}
+
+/* data-reveal-group: los hijos aparecen en cascada. --i (posición) lo pone ScrollController.
+   Usamos animation y no transition para que las tarjetas nuevas (filtros) también entren. */
+.motion-ok [data-reveal-group] > * {
+  opacity: 0;
+}
+.motion-ok [data-reveal-group].is-revealed > * {
+  animation: rise-in 800ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+.motion-ok [data-reveal-group="zoom"].is-revealed > * {
+  animation-name: pop-in;
+  animation-duration: 600ms;
+}
+
+/* ==================== DETALLES CONTINUOS Y DE INTERACCIÓN ==================== */
+.motion-ok .orbit-one { animation: spin 28s linear infinite reverse; }
+.motion-ok .orbit-two { animation: spin 46s linear infinite; }
+.motion-ok .orbit-node { animation: float 5s ease-in-out infinite; }
+.motion-ok .node-two { animation-delay: -1.2s; }
+.motion-ok .node-three { animation-delay: -2.4s; }
+.motion-ok .node-four { animation-delay: -3.6s; }
+
+/* La respuesta del FAQ se despliega con un leve descenso al quitar hidden. */
+.motion-ok .faq-panel:not([hidden]) {
+  animation: fade-down 400ms var(--ease-out);
+}
+.motion-ok .back-to-top:not([hidden]) {
+  animation: pop-in 400ms var(--ease-out);
+}
+.motion-ok .event-dialog[open] {
+  animation: zoom-in 350ms var(--ease-out);
+}

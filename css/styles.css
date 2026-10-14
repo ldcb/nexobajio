@@ -16,6 +16,10 @@ body {
   width: min(var(--container-width), calc(100% - var(--page-gutter) * 2));
   margin-inline: auto;
 }
+/* clip recorta las entradas laterales sin crear un contenedor de scroll. */
+main {
+  overflow-x: clip;
+}
 .section {
   padding-block: var(--section-space);
 }
@@ -136,10 +140,17 @@ h3 {
   text-decoration: none;
   text-align: center;
   /* Solo animamos propiedades pequeñas; nunca el tamaño ni el flujo de la página. */
-  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition: background var(--transition-fast), transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
 }
 .button:hover {
   transform: translateY(-2px);
+}
+/* La flecha avanza un poco: indica dirección sin mover el botón completo. */
+.button .icon, .text-link .icon, .text-button .icon, .help-chip .icon, .footer-contact .icon {
+  transition: translate 300ms var(--ease-out);
+}
+.button:hover .icon, .text-link:hover .icon, .text-button:hover .icon, .help-chip:hover .icon, .footer-contact:hover .icon {
+  translate: 0.25rem 0;
 }
 .button:disabled {
   cursor: not-allowed;
@@ -147,12 +158,28 @@ h3 {
   transform: none;
 }
 .button-primary {
+  position: relative;
+  overflow: hidden;
   color: var(--color-white);
-  background: var(--color-brand);
+  background: var(--color-brand) var(--gradient-brand);
+  box-shadow: 0 6px 18px -10px rgb(14 116 144 / 60%);
 }
 .button-primary:hover {
-  background: var(--color-brand-hover);
-  box-shadow: var(--shadow-soft);
+  background: var(--color-brand-hover) var(--gradient-brand-hover);
+  box-shadow: var(--shadow-glow);
+}
+/* Un reflejo diagonal recorre el botón; pointer-events evita que intercepte clics. */
+.button-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 22%) 50%, transparent 70%);
+  translate: -120% 0;
+  transition: translate 700ms var(--ease-out);
+  pointer-events: none;
+}
+.button-primary:hover::after {
+  translate: 120% 0;
 }
 .button-secondary {
   color: var(--color-primary);
@@ -160,7 +187,9 @@ h3 {
   background: var(--color-surface);
 }
 .button-secondary:hover {
+  border-color: var(--color-line-soft);
   background: var(--color-soft);
+  box-shadow: var(--shadow-soft);
 }
 .button-light {
   color: var(--color-primary);
@@ -211,6 +240,32 @@ h3 {
   z-index: 30;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-header-bg);
+  transition: box-shadow 300ms ease, border-color 300ms ease;
+}
+/* Efecto vidrio solo donde existe backdrop-filter; si no, queda el fondo casi opaco. */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header {
+    background: var(--color-header-glass);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    backdrop-filter: saturate(180%) blur(16px);
+  }
+}
+/* ScrollController añade is-scrolled al bajar: la cabecera se separa del contenido. */
+.site-header.is-scrolled {
+  border-bottom-color: transparent;
+  box-shadow: var(--shadow-header);
+}
+/* scaleX recibe el avance de lectura (0 a 1) desde ScrollController. */
+.scroll-progress {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--gradient-accent);
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left;
+  pointer-events: none;
 }
 .header-inner {
   display: flex;
@@ -245,15 +300,38 @@ h3 {
   gap: clamp(0.65rem, 1.4vw, 1.4rem);
 }
 .main-navigation > a:not(.button) {
+  position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
   font-size: 0.78rem;
   font-weight: 550;
   text-decoration: none;
+  transition: color var(--transition-fast);
+}
+.main-navigation > a:not(.button)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0.45rem;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gradient-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 350ms var(--ease-out);
 }
 .main-navigation > a:not(.button):hover {
   color: var(--color-accent-dark);
+}
+/* is-active marca la sección visible; ScrollController la actualiza al desplazarse. */
+.main-navigation > a.is-active {
+  color: var(--color-ink);
+}
+.main-navigation > a:not(.button):hover::after,
+.main-navigation > a.is-active::after {
+  transform: scaleX(1);
 }
 .menu-button {
   display: none;
@@ -274,10 +352,17 @@ h3 {
   border-radius: var(--radius-small);
   color: var(--color-primary);
   background: var(--color-surface);
-  transition: background var(--transition-fast);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
 }
 .theme-toggle:hover {
+  border-color: var(--color-line-soft);
   background: var(--color-soft);
+}
+.theme-toggle .icon {
+  transition: rotate 500ms var(--ease-out);
+}
+.theme-toggle:hover .icon {
+  rotate: 25deg;
 }
 /* La luna invita a oscurecer; el sol, a volver al modo claro. */
 .theme-toggle .icon-sun,
@@ -288,8 +373,38 @@ h3 {
   display: block;
 }
 .hero {
+  position: relative;
+  isolation: isolate; /* Los fondos decorativos con z-index -1 quedan dentro del hero. */
+  overflow: hidden;
   padding-top: clamp(2.8rem, 5vw, 5.25rem);
   background: var(--color-bg);
+}
+.hero::before, .hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.hero::before {
+  background:
+    radial-gradient(42rem 30rem at 88% 8%, var(--color-glow-2), transparent 70%),
+    radial-gradient(36rem 28rem at 0% 45%, var(--color-glow-1), transparent 70%);
+}
+/* mask-image desvanece la retícula hacia abajo para que no compita con el texto. */
+.hero::after {
+  background-image: radial-gradient(var(--color-dot) 1px, transparent 1px);
+  background-size: 1.75rem 1.75rem;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
+}
+.hero .eyebrow {
+  width: fit-content;
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--color-border);
+  border-radius: 2rem;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
 }
 .hero-grid {
   display: grid;
@@ -305,8 +420,17 @@ h3 {
   line-height: 1.055;
   letter-spacing: -0.055em;
 }
+/* background-clip:text pinta el degradado solo dentro de las letras. */
 .hero h1 > span {
   color: var(--color-accent-dark);
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* En modo de alto contraste del sistema volvemos al color sólido. */
+@media (forced-colors: active) {
+  .hero h1 > span { background: none; -webkit-text-fill-color: currentColor; }
 }
 .hero-description {
   max-width: 31rem;
@@ -327,6 +451,7 @@ h3 {
 .hero-visual > img {
   width: 100%;
   border-radius: var(--radius-large);
+  box-shadow: var(--shadow-lift);
 }
 .visual-caption {
   position: absolute;
@@ -341,7 +466,7 @@ h3 {
   border-radius: 1rem;
   color: var(--color-muted);
   background: var(--color-surface);
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-lift);
   font-size: 0.8rem;
   line-height: 1.6;
 }
@@ -387,6 +512,11 @@ h3 {
   font-size: 0.86rem;
   font-weight: 650;
 }
+.connection-line > span:not([aria-hidden]) {
+  padding: 0.35rem 0.85rem;
+  border-radius: 2rem;
+  background: var(--color-mint);
+}
 .connection-line [aria-hidden] {
   color: var(--color-accent-dark);
 }
@@ -396,16 +526,48 @@ h3 {
   gap: 1.2rem;
 }
 .service-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 2rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   background: var(--color-surface);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition: transform 400ms var(--ease-out), box-shadow 400ms var(--ease-out), border-color 400ms ease;
+}
+/* ::before dibuja una línea de color superior; ::after, un brillo en la esquina. */
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: var(--gradient-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 500ms var(--ease-out);
+}
+.service-card::after {
+  content: '';
+  position: absolute;
+  top: -6rem;
+  right: -6rem;
+  z-index: -1;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  background: radial-gradient(var(--color-glow-1), transparent 70%);
+  opacity: 0;
+  transition: opacity 400ms ease;
 }
 .service-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-soft);
+  transform: translateY(-6px);
+  border-color: var(--color-line-soft);
+  box-shadow: var(--shadow-lift);
 }
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover::after { opacity: 1; }
 .icon-box {
   display: grid;
   place-items: center;
@@ -415,6 +577,12 @@ h3 {
   border-radius: 0.8rem;
   color: var(--color-primary);
   background: var(--color-mint);
+  transition: color 350ms ease, background 350ms ease, transform 400ms var(--ease-out);
+}
+.service-card:hover .icon-box {
+  color: var(--color-white);
+  background: var(--color-brand) var(--gradient-brand);
+  transform: rotate(-6deg) scale(1.06);
 }
 .icon-box .icon {
   width: 1.5rem;
@@ -435,12 +603,23 @@ h3 {
   display: flex;
   align-items: flex-start;
   gap: 0.8rem;
-  padding: 1.6rem 1rem 1.6rem 0;
+  padding: 1.6rem 1rem;
   border-bottom: 1px solid var(--color-border);
+  transition: background 350ms ease;
+}
+/* hover: hover limita el tinte a dispositivos con cursor; en táctiles no se queda pegado. */
+@media (hover: hover) {
+  .topic-card:hover {
+    background: linear-gradient(120deg, var(--color-mint), transparent 85%);
+  }
 }
 .topic-card > .icon {
   margin-top: 0.2rem;
   color: var(--color-accent-dark);
+  transition: transform 400ms var(--ease-out);
+}
+.topic-card:hover > .icon {
+  transform: scale(1.2) rotate(-8deg);
 }
 .topic-card h3 {
   font-size: 0.9rem;
@@ -484,12 +663,16 @@ h3 {
   color: var(--color-text);
   background: var(--color-surface);
   font-size: 0.83rem;
-  transition: background var(--transition-fast);
+  transition: background var(--transition-fast), border-color var(--transition-fast), box-shadow 300ms ease;
+}
+.event-filters button:hover {
+  border-color: var(--color-line-soft);
 }
 .event-filters button[aria-pressed="true"] {
-  border-color: var(--color-brand);
+  border-color: transparent;
   color: var(--color-white);
-  background: var(--color-brand);
+  background: var(--color-brand) var(--gradient-brand);
+  box-shadow: var(--shadow-glow);
 }
 .events-grid {
   display: grid;
@@ -504,6 +687,11 @@ h3 {
   border-radius: var(--radius-card);
   background: var(--color-surface);
   box-shadow: var(--shadow-soft);
+  transition: transform 400ms var(--ease-out), box-shadow 400ms var(--ease-out);
+}
+.event-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lift);
 }
 .event-card-top {
   display: flex;
@@ -621,6 +809,8 @@ h3 {
 }
 .event-dialog::backdrop {
   background: rgb(15 23 42 / 58%);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 .dialog-top {
   display: flex;
@@ -669,8 +859,23 @@ h3 {
 
 /* ==================== ORIENTACIÓN Y COMUNIDAD ==================== */
 .help-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   color: #D7EAE9;
-  background: var(--color-brand);
+  background: var(--color-brand) var(--gradient-help);
+}
+/* Dos halos de luz y una retícula leve dan profundidad al bloque oscuro. */
+.help-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(30rem 22rem at 100% 0%, rgb(45 212 191 / 22%), transparent 70%),
+    radial-gradient(26rem 20rem at 0% 100%, rgb(14 165 233 / 18%), transparent 70%),
+    radial-gradient(rgb(255 255 255 / 6%) 1px, transparent 1px) 0 0 / 1.75rem 1.75rem;
+  pointer-events: none;
 }
 .help-layout {
   display: grid;
@@ -707,7 +912,7 @@ h3 {
   font-size: 0.82rem;
   line-height: 1.5;
   text-align: left;
-  transition: background var(--transition-fast);
+  transition: background var(--transition-fast), border-color var(--transition-fast), transform 300ms var(--ease-out);
 }
 .help-chip .icon {
   width: 1rem;
@@ -715,7 +920,9 @@ h3 {
   color: #AFEADD;
 }
 .help-chip:hover {
+  border-color: #A9E7D9;
   background: rgb(255 255 255 / 12%);
+  transform: translateY(-2px);
 }
 /* En fondos oscuros cambiamos solo la variable local del foco. */
 .help-section, .site-footer {
@@ -733,8 +940,11 @@ h3 {
   place-items: center;
   min-height: 25rem;
   overflow: hidden;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-large);
-  background: var(--color-soft);
+  background:
+    radial-gradient(circle at 50% 44%, var(--color-glow-1), transparent 60%),
+    var(--gradient-soft);
 }
 .orbit {
   position: absolute;
@@ -746,7 +956,19 @@ h3 {
   transform: translate(-50%, -50%);
 }
 .orbit-one { width: 55%; }
-.orbit-two { width: 82%; }
+.orbit-two { width: 82%; border-style: dashed; }
+/* Un punto viaja sobre cada órbita cuando la animación la hace girar. */
+.orbit::after {
+  content: '';
+  position: absolute;
+  top: -0.3rem;
+  left: 50%;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 0.3rem var(--color-glow-1);
+}
 .community-core {
   position: absolute;
   top: 44%;
@@ -756,6 +978,8 @@ h3 {
 .community-core .brand-mark {
   width: 5.5rem;
   height: 5.5rem;
+  border-radius: 1.6rem;
+  box-shadow: var(--shadow-glow);
 }
 .orbit-node {
   position: absolute;
@@ -799,7 +1023,13 @@ h3 {
   padding: 0.5rem 0.7rem;
   border: 1px solid var(--color-border);
   border-radius: 2rem;
+  background: var(--color-surface);
   font-size: 0.77rem;
+  transition: border-color var(--transition-fast), transform 300ms var(--ease-out);
+}
+.profile-list li:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
 }
 .profile-list .icon {
   width: 0.9rem;
@@ -814,17 +1044,39 @@ h3 {
   gap: 2rem;
 }
 .participation-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding-block: 1.2rem 0.2rem;
   border-top: 1px solid var(--color-line-soft);
 }
+.participation-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-accent);
+  transform: scaleX(0.18);
+  transform-origin: left;
+  transition: transform 600ms var(--ease-out);
+}
+.participation-card:hover::before {
+  transform: scaleX(1);
+}
 .step-number {
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
   color: var(--color-accent-dark);
-  font-size: 0.75rem;
-  font-weight: 700;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
 }
 .participation-card h3 { font-size: 1.6rem; }
 .participation-card p { margin-block: 0.8rem 1rem; font-size: 0.9rem; }
@@ -866,6 +1118,10 @@ h3 {
   font-weight: 550;
   line-height: 1.5;
   text-align: left;
+  transition: color var(--transition-fast);
+}
+.faq-button:hover {
+  color: var(--color-accent-dark);
 }
 .faq-number {
   color: var(--color-accent-dark);
@@ -875,7 +1131,7 @@ h3 {
 .faq-question { flex: 1; }
 .faq-button > .icon {
   color: var(--color-primary);
-  transition: transform var(--transition-fast);
+  transition: transform 400ms var(--ease-out);
 }
 .faq-button[aria-expanded="true"] > .icon { transform: rotate(45deg); }
 .faq-panel {
@@ -887,7 +1143,9 @@ h3 {
 /* ==================== CONTACTO Y PIE ==================== */
 .contact-section {
   border-top: 1px solid var(--color-border);
-  background: var(--color-contact-bg);
+  background:
+    radial-gradient(34rem 26rem at 100% 100%, var(--color-glow-2), transparent 70%),
+    var(--color-contact-bg);
 }
 .contact-layout {
   display: grid;
@@ -925,7 +1183,7 @@ h3 {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   background: var(--color-surface);
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-lift);
 }
 .contact-form > h3 { font-size: 1.4rem; }
 .form-intro { margin-block: 0.5rem 1.6rem; color: var(--color-muted); font-size: 0.76rem; }
@@ -955,10 +1213,11 @@ h3 {
   background: var(--color-surface);
   font-size: 0.88rem;
   line-height: 1.5;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 .field textarea { min-height: 8rem; resize: vertical; }
 .field input::placeholder, .field textarea::placeholder { color: var(--color-placeholder); opacity: 1; }
-.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--color-primary); }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 4px var(--color-glow-1); }
 .field [aria-invalid="true"] { border-color: var(--color-error); background: var(--color-invalid-bg); }
 .field small { display: block; margin-top: 0.4rem; color: var(--color-muted); font-size: 0.72rem; }
 .field-error { color: var(--color-error); font-size: 0.75rem; line-height: 1.5; }
@@ -969,7 +1228,9 @@ h3 {
 .form-status:not(:empty) { margin-top: 1rem; padding: 1rem; border-radius: var(--radius-small); }
 .form-status.is-error { color: var(--color-error); background: var(--color-error-soft); }
 .form-status.is-success { color: var(--color-success); background: var(--color-success-soft); }
-.site-footer { padding-top: 4rem; color: #C6D6DF; background: var(--color-footer-bg); }
+.site-footer { position: relative; padding-top: 4rem; color: #C6D6DF; background: var(--color-footer-bg); }
+/* Línea de color superior: cierra la página con los tonos de la marca. */
+.site-footer::before { content: ''; position: absolute; top: 0; right: 0; left: 0; height: 2px; background: var(--gradient-accent); opacity: 0.8; }
 .footer-grid {
   display: grid;
   grid-template-columns: 1.4fr 0.7fr 1fr 1.15fr;
@@ -980,7 +1241,7 @@ h3 {
 .footer-tagline { margin-top: 1.1rem; font-size: 0.85rem; line-height: 1.8; }
 .footer-grid h2 { margin-bottom: 1.1rem; color: #ECF4F8; font-size: 0.83rem; font-weight: 600; letter-spacing: 0; }
 .footer-grid nav > a { display: block; width: fit-content; min-height: 2.1rem; font-size: 0.78rem; text-decoration: none; }
-.footer-grid nav > a:hover, .footer-grid li > a:hover { text-decoration: underline; }
+.footer-grid nav > a:hover, .footer-grid li > a:hover { color: #A2E5D7; text-decoration: underline; }
 .footer-grid li { min-height: 2.1rem; font-size: 0.75rem; }
 .footer-grid li > a { text-decoration: none; }
 .footer-grid [data-contact-email] { font-size: 0.78rem; }
@@ -1010,12 +1271,11 @@ h3 {
   color: var(--color-primary);
   background: var(--color-surface);
   box-shadow: var(--shadow-soft);
+  transition: color var(--transition-fast), background var(--transition-fast), transform 300ms var(--ease-out);
 }
-
-/* La animación ocurre solo cuando IntersectionObserver añade la clase.
-   No ponemos opacity:0 al contenido original: sin JS todo sigue siendo legible. */
-@keyframes reveal {
-  from { opacity: 0.65; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.back-to-top:hover {
+  color: var(--color-white);
+  background: var(--color-brand) var(--gradient-brand);
+  transform: translateY(-3px);
 }
-.is-revealed { animation: reveal 450ms ease both; }
+/* Las animaciones de entrada y al hacer scroll viven en animations.css. */
