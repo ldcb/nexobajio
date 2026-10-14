@@ -75,7 +75,7 @@ Los breakpoints están en `responsive.css`: 64rem para el menú, 48rem para apil
 | `addEventListener` | Registra la función que responderá a un evento. |
 | `map` | Produce otro array: se usa para copiar los objetos sin cambiar el original. |
 | `forEach` | Recorre elementos para realizar una acción, como añadir sus tarjetas. |
-| `filter` | Produce un array sólo con los eventos de la categoría elegida. |
+| `filter` | Produce un array solo con los eventos de la categoría elegida. |
 | `find` | Busca el evento que coincide con un identificador. |
 | Template literal | Usa comillas invertidas para combinar texto y valores: `` `#icon-${name}` ``. |
 | `import` | Trae una pieza de otro módulo o ejecuta un módulo de datos. |

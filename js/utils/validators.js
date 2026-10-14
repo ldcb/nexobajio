@@ -1,7 +1,7 @@
 /** Funciones puras: reciben valores y devuelven errores, sin tocar la página. */
 export function validateContact(values) {
   const errors = {};
-  // trim elimina espacios de los extremos: un campo con sólo espacios está vacío.
+  // trim elimina espacios de los extremos: un campo con solo espacios está vacío.
   const name = String(values.name || '').trim();
   const email = String(values.email || '').trim();
   const phone = String(values.phone || '').trim();
@@ -42,7 +42,7 @@ export function validateContact(values) {
 }
 
 export function isSafeWebUrl(value) {
-  // new URL interpreta la dirección. Permitimos sólo HTTPS para los canales externos.
+  // new URL interpreta la dirección. Permitimos solo HTTPS para los canales externos.
   try {
     return new URL(value).protocol === 'https:';
   } catch {

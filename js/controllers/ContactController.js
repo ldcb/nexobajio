@@ -18,7 +18,7 @@ export class ContactController {
 
       // DEMOSTRACIÓN: no hay una petición de red ni se guardan estos datos.
       // Futuro: llamar aquí a un servicio async que use fetch hacia PHP, Node.js,
-      // Firebase, Supabase o una API. Mostrar éxito sólo tras una respuesta exitosa.
+      // Firebase, Supabase o una API. Mostrar éxito solo tras una respuesta exitosa.
       // El servidor debe repetir la validación y aplicar límites de uso; una
       // validación en el navegador puede omitirse y NO constituye seguridad backend.
       this.view.showSuccess();

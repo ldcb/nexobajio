@@ -8,9 +8,9 @@ Una comunidad que conecta personas con tecnología. Proyecto completo, editable 
 2. Entra en la carpeta `NexoBajio`.
 3. Abre **`index.html`** con doble clic en Microsoft Edge, Chrome, Firefox o Safari recientes.
 
-Conserva juntas las carpetas `css`, `js` y `assets`. Abrir sólo el HTML desde dentro de un ZIP puede impedir que el navegador encuentre los demás archivos.
+Conserva juntas las carpetas `css`, `js` y `assets`. Abrir solo el HTML desde dentro de un ZIP puede impedir que el navegador encuentre los demás archivos.
 
-**No hay que ejecutar npm, instalar paquetes ni iniciar un servidor para usar `index.html`.** La página, la ilustración, los eventos, los filtros, el FAQ y la simulación del formulario funcionan con archivos locales. No utiliza Google Fonts, CDN, imágenes externas, cookies, analítica ni almacenamiento de mensajes.
+**No hay que ejecutar npm, instalar paquetes ni iniciar un servidor para usar `index.html`.** La página, la ilustración, los eventos, los filtros, el FAQ y la simulación del formulario funcionan con archivos locales. No utiliza Google Fonts, CDN, imágenes externas, cookies, analítica ni almacenamiento de mensajes. Solo recuerda en `localStorage` si elegiste el modo claro u oscuro.
 
 La segunda entrada, **`index.modulos.html`**, muestra exactamente la misma página y carga los archivos originales mediante módulos ES6. Esa entrada sí necesita un servidor local.
 
@@ -27,6 +27,7 @@ La segunda entrada, **`index.modulos.html`**, muestra exactamente la misma pági
 - Formulario con validación de campos, errores específicos y confirmación simulada.
 - Footer, canales configurables, año automático y enlace para volver arriba.
 - Diseño con Grid, Flexbox, media queries, foco visible y movimiento reducido.
+- Modo oscuro con botón en la cabecera; respeta la preferencia del sistema y recuerda tu elección.
 - Metadatos SEO, Open Graph básico y favicon SVG.
 
 Los eventos son **DATOS DE DEMOSTRACIÓN**. Las fechas, ubicaciones, ponentes y costos no constituyen convocatorias reales. El correo utiliza el dominio de ejemplo `.example`, y las redes permanecen como “próximamente” hasta configurarlas. El formulario **no envía ni guarda información**, incluso cuando la validación es correcta.
@@ -82,6 +83,7 @@ Todas estas rutas son relativas a la carpeta `NexoBajio`:
 | `js/controllers/FAQController.js` | Decide qué pregunta permanece abierta. |
 | `js/controllers/ContactController.js` | Valida y coordina el formulario. |
 | `js/controllers/NavigationController.js` | Menú móvil, accesos al contacto y volver arriba. |
+| `js/controllers/ThemeController.js` | Botón de modo claro/oscuro y preferencia guardada. |
 | `js/utils/dom.js` | Creación segura de nodos, iconos, fechas y foco. |
 | `js/utils/validators.js` | Validación pura del formulario y enlaces HTTPS. |
 | `js/app.js` | Punto de entrada y conexión entre todas las piezas. |
@@ -170,7 +172,7 @@ Abre `js/data/events.js`. Dentro de `globalThis.NexoBajioData.events = [...]`, a
 - Las categorías iniciales son `Charla`, `Taller` y `Meetup`; deben coincidir exactamente con los filtros.
 - `startsAt` usa fecha ISO con hora y desfase. La zona especificada evita desplazar la hora según el equipo del visitante.
 - Si el evento ocurre en otra zona horaria, actualiza `timeZone`, el desfase de `startsAt` y la etiqueta de horario en `EventView.js`.
-- Mantén `isDemo: true` para todo ejemplo. Usa `false` sólo al introducir información real confirmada.
+- Mantén `isDemo: true` para todo ejemplo. Usa `false` solo al introducir información real confirmada.
 - La vista ordena todos los registros cronológicamente; **no elimina automáticamente eventos pasados**. Para mantener la sección “Próximos eventos”, retira o archiva los registros vencidos.
 - Si dejas el array vacío, se muestra un estado sin eventos en lugar de romper la página.
 - Para otra categoría, agrega también su botón en `#event-filters`, con `data-event-filter` igual al nuevo valor.
@@ -237,7 +239,7 @@ El punto de integración está señalado en `ContactController.js`, justo despu�
 - Crea un servicio separado que envíe una petición HTTPS mediante `fetch` a tu endpoint PHP, Node.js, función de Firebase, función de Supabase o API.
 - Define los campos aceptados y repite validación, longitudes y tipos en el servidor. No confíes en el navegador.
 - Añade estados de enviando, error y éxito; evita duplicar envíos y conserva lo escrito si la red falla.
-- Confirma recepción sólo después de una respuesta exitosa del servidor. Retira los avisos de simulación únicamente cuando haya entrega real y verificada.
+- Confirma recepción solo después de una respuesta exitosa del servidor. Retira los avisos de simulación únicamente cuando haya entrega real y verificada.
 - Configura reglas de acceso, límites de uso y protección contra abuso según el servicio. Nunca pongas contraseñas, claves privadas, claves de servicio o secretos de correo en estos archivos públicos.
 - Define la política de tratamiento de datos correspondiente al formulario real.
 
@@ -252,7 +254,7 @@ No se incluye un backend ficticio ni un `fetch` a una URL inexistente. La simula
 - Menú móvil con estado expandido, cierre al seleccionar, clic exterior y Escape.
 - `prefers-reduced-motion` elimina desplazamientos animados y transiciones.
 - Valores dinámicos insertados mediante `textContent`, `createElement` y `replaceChildren`; sin `eval()` ni `innerHTML`.
-- Enlaces sociales restringidos a HTTPS. Los datos no se almacenan en `localStorage`, cookies o servicios externos.
+- Enlaces sociales restringidos a HTTPS. Los datos del formulario no se almacenan en `localStorage`, cookies o servicios externos; solo se guarda la preferencia de tema.
 
 ## Verificación
 

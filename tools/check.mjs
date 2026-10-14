@@ -102,7 +102,7 @@ test('Los límites máximos y los formatos inválidos son rechazados', () => {
   assert.ok(validateContact({ ...valid, phone: '123456' }).phone);
   assert.ok(validateContact({ ...valid, phone: '1'.repeat(16) }).phone);
 });
-test('El contacto no confirma un envío inválido y sólo simula éxito válido', () => {
+test('El contacto no confirma un envío inválido y solo simula éxito válido', () => {
   const view = {
     renderContact(contact, links) { this.contact = contact; this.links = links; },
     bindSubmit(handler) { this.submit = handler; },

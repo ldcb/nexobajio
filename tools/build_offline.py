@@ -2,7 +2,7 @@
 """Construye la versión de doble clic sin instalar bibliotecas.
 
 Uso, desde la carpeta NexoBajio: python tools/build_offline.py
-Los módulos conservan sus comentarios. Este pequeño empaquetador sólo soporta
+Los módulos conservan sus comentarios. Este pequeño empaquetador solo soporta
 el estilo de imports/exports usado en este proyecto, no todo el estándar JS.
 """
 
@@ -26,6 +26,7 @@ MODULES = [
     'js/controllers/FAQController.js',
     'js/controllers/ContactController.js',
     'js/controllers/NavigationController.js',
+    'js/controllers/ThemeController.js',
     'js/app.js',
 ]
 
