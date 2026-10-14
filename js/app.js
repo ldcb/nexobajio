@@ -15,6 +15,7 @@ import { FAQController } from './controllers/FAQController.js';
 import { ContactController } from './controllers/ContactController.js';
 import { NavigationController } from './controllers/NavigationController.js';
 import { ThemeController } from './controllers/ThemeController.js';
+import { ScrollController } from './controllers/ScrollController.js';
 
 function startApp() {
   // const evita reasignar la referencia. El contenido del objeto sí puede cambiar.
@@ -30,22 +31,11 @@ function startApp() {
   contactController.init();
   new NavigationController(contactController).init();
   new ThemeController().init();
+  // Va al final: las tarjetas de eventos y el FAQ ya existen y entran en la cascada.
+  new ScrollController().init();
 
   // El año siempre refleja el reloj del dispositivo sin editar el footer cada enero.
   document.querySelector('#current-year').textContent = String(new Date().getFullYear());
-
-  // El contenido es visible por defecto; la animación nunca oculta información esencial.
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if ('IntersectionObserver' in window && !reducedMotion) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-revealed');
-        observer.unobserve(entry.target); // Cada bloque se anima una sola vez.
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('[data-reveal]').forEach((element) => observer.observe(element));
-  }
 }
 
 // type="module" y defer ejecutan después de analizar el HTML: el DOM ya existe.

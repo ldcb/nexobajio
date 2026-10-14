@@ -41,6 +41,23 @@
   --color-back-border: #8AB8AF;
   --color-footer-bg: #0F172A;
 
+  /* Degradados, brillos y sombras de la capa visual (efectos y animaciones). */
+  --color-accent-2: #0E7490; /* Cian profundo: acompaña al turquesa en degradados. */
+  --gradient-brand: linear-gradient(135deg, #0F4C5C 0%, #0E7490 100%);
+  --gradient-brand-hover: linear-gradient(135deg, #0A3B49 0%, #0B5F75 100%);
+  --gradient-text: linear-gradient(100deg, #08766B 0%, #0E7490 100%);
+  --gradient-accent: linear-gradient(90deg, #14B8A6 0%, #0EA5E9 100%);
+  --gradient-help: linear-gradient(135deg, #0B3F4D 0%, #0F4C5C 55%, #0D5C6B 100%);
+  --gradient-soft: linear-gradient(160deg, #F1FAF8 0%, #EEF5FA 100%);
+  --color-glow-1: rgb(20 184 166 / 16%);
+  --color-glow-2: rgb(14 165 233 / 12%);
+  --color-dot: rgb(15 76 92 / 12%);
+  --color-header-glass: rgb(255 255 255 / 72%);
+  --shadow-lift: 0 22px 48px -18px rgb(15 76 92 / 28%);
+  --shadow-glow: 0 12px 28px -10px rgb(14 116 144 / 55%);
+  --shadow-header: 0 8px 30px -12px rgb(15 23 42 / 18%);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1); /* Arranque rápido y final suave. */
+
   /* Fuentes locales: no se descarga Google Fonts, y la página funciona sin internet.
      Inter/Manrope se usan solo si ya están instaladas; después viene la del sistema. */
   --font-sans: 'Inter', 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -100,6 +117,32 @@
     --color-selection: #134E4A;
     --color-back-border: #2F5A57;
     --color-footer-bg: #070C17;
+  --color-accent-2: #7DD3FC;
+  --gradient-brand: linear-gradient(135deg, #13606F 0%, #0E7490 100%);
+  --gradient-brand-hover: linear-gradient(135deg, #17707F 0%, #0F82A0 100%);
+  --gradient-text: linear-gradient(100deg, #5EEAD4 0%, #7DD3FC 100%);
+  --gradient-help: linear-gradient(135deg, #0C2D38 0%, #11505E 55%, #13606F 100%);
+  --gradient-soft: linear-gradient(160deg, #0F1D2A 0%, #101A2C 100%);
+  --color-glow-1: rgb(45 212 191 / 11%);
+  --color-glow-2: rgb(56 189 248 / 9%);
+  --color-dot: rgb(255 255 255 / 7%);
+  --color-header-glass: rgb(11 18 32 / 72%);
+  --shadow-lift: 0 22px 48px -18px rgb(0 0 0 / 65%);
+  --shadow-glow: 0 12px 28px -10px rgb(45 212 191 / 35%);
+  --shadow-header: 0 8px 30px -12px rgb(0 0 0 / 60%);
+    --color-accent-2: #7DD3FC;
+    --gradient-brand: linear-gradient(135deg, #13606F 0%, #0E7490 100%);
+    --gradient-brand-hover: linear-gradient(135deg, #17707F 0%, #0F82A0 100%);
+    --gradient-text: linear-gradient(100deg, #5EEAD4 0%, #7DD3FC 100%);
+    --gradient-help: linear-gradient(135deg, #0C2D38 0%, #11505E 55%, #13606F 100%);
+    --gradient-soft: linear-gradient(160deg, #0F1D2A 0%, #101A2C 100%);
+    --color-glow-1: rgb(45 212 191 / 11%);
+    --color-glow-2: rgb(56 189 248 / 9%);
+    --color-dot: rgb(255 255 255 / 7%);
+    --color-header-glass: rgb(11 18 32 / 72%);
+    --shadow-lift: 0 22px 48px -18px rgb(0 0 0 / 65%);
+    --shadow-glow: 0 12px 28px -10px rgb(45 212 191 / 35%);
+    --shadow-header: 0 8px 30px -12px rgb(0 0 0 / 60%);
     --shadow-soft: 0 10px 32px rgb(0 0 0 / 30%);
     color-scheme: dark;
   }

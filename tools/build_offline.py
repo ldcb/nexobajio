@@ -27,6 +27,7 @@ MODULES = [
     'js/controllers/ContactController.js',
     'js/controllers/NavigationController.js',
     'js/controllers/ThemeController.js',
+    'js/controllers/ScrollController.js',
     'js/app.js',
 ]
 

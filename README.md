@@ -71,6 +71,7 @@ Todas estas rutas son relativas a la carpeta `NexoBajio`:
 | `css/reset.css` | Reglas base para diferencias entre navegadores. |
 | `css/variables.css` | Colores, tipografía, medidas y variables compartidas. |
 | `css/styles.css` | Diseño de secciones y componentes. |
+| `css/animations.css` | Animaciones de entrada, revelado al hacer scroll y movimientos decorativos. |
 | `css/responsive.css` | Adaptación a tamaños de pantalla, impresión y movimiento reducido. |
 | `js/data/events.js` | Única fuente de eventos para las dos entradas. |
 | `js/data/community.js` | FAQ, correo y redes sociales editables. |
@@ -84,6 +85,7 @@ Todas estas rutas son relativas a la carpeta `NexoBajio`:
 | `js/controllers/ContactController.js` | Valida y coordina el formulario. |
 | `js/controllers/NavigationController.js` | Menú móvil, accesos al contacto y volver arriba. |
 | `js/controllers/ThemeController.js` | Botón de modo claro/oscuro y preferencia guardada. |
+| `js/controllers/ScrollController.js` | Revelado al hacer scroll, barra de progreso, sección activa del menú y parallax. |
 | `js/utils/dom.js` | Creación segura de nodos, iconos, fechas y foco. |
 | `js/utils/validators.js` | Validación pura del formulario y enlaces HTTPS. |
 | `js/app.js` | Punto de entrada y conexión entre todas las piezas. |
