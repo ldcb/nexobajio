@@ -1,0 +1,45 @@
+/* box-sizing incluye borde y relleno dentro del ancho, evitando desbordamientos. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Quitamos los márgenes que los navegadores añaden de forma predeterminada. */
+body, h1, h2, h3, p, ul, dl, dd {
+  margin: 0;
+}
+
+/* Las imágenes nunca deben superar su contenedor; height:auto conserva proporción. */
+img, svg {
+  display: block;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Los controles heredan la tipografía para mantener coherencia con el documento. */
+button, input, select, textarea {
+  font: inherit;
+}
+button, a, input, textarea, select {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  cursor: pointer;
+}
+a {
+  color: inherit;
+}
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+/* hidden sigue significando oculto aunque otra regla del componente use display:flex. */
+[hidden] {
+  display: none !important;
+}
+
+/* No quitamos outline globalmente: la navegación con teclado necesita foco visible. */

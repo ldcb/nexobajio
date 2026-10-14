@@ -1,0 +1,10 @@
+{
+  "name": "nexobajio-landing-mvc",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Landing educativa de NexoBajío en HTML, CSS y JavaScript Vanilla, sin dependencias.",
+  "scripts": {
+    "test": "node tools/check.mjs"
+  }
+}

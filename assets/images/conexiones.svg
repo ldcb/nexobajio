@@ -1,0 +1,36 @@
+<!-- Ilustración original y autónoma. viewBox permite escalar sin perder nitidez.
+     Los grupos <g> reúnen formas; stroke dibuja líneas y fill rellena figuras. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="520" viewBox="0 0 560 520" role="img" aria-labelledby="title desc">
+ <title id="title">Conexiones que nos acercan</title><desc id="desc">Una red conecta personas e ideas con el símbolo de NexoBajío.</desc>
+ <defs>
+  <!-- El patrón crea una retícula sutil sin descargar una textura. -->
+  <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0v36" fill="none" stroke="#FFFFFF" stroke-opacity=".055"/></pattern>
+ </defs>
+ <rect width="560" height="520" rx="32" fill="#0F4C5C"/>
+ <rect width="560" height="520" rx="32" fill="url(#grid)"/>
+ <circle cx="280" cy="255" r="168" fill="none" stroke="#66C5BA" stroke-opacity=".18"/>
+ <circle cx="280" cy="255" r="112" fill="none" stroke="#66C5BA" stroke-opacity=".16" stroke-dasharray="4 7"/>
+ <g font-family="Inter,Segoe UI,Arial,sans-serif">
+  <text x="34" y="42" font-size="10" letter-spacing="2" fill="#B8DDD8">CONEXIONES QUE NOS ACERCAN</text>
+  <circle cx="519" cy="38" r="4" fill="#86E6D5"/>
+  <!-- Conexiones curvas entre el nodo central y los nodos de personas y temas. -->
+  <g fill="none" stroke="#6ACEC0" stroke-width="1.5" opacity=".65">
+   <path d="M245 226Q150 220 116 140M319 223Q365 126 438 152M246 281Q162 292 130 366M317 282Q354 353 448 359M280 215V110M280 299V400"/>
+  </g>
+  <g fill="#B3F1E5"><circle cx="194" cy="216" r="3"/><circle cx="343" cy="179" r="3"/><circle cx="183" cy="316" r="3"/><circle cx="363" cy="333" r="3"/></g>
+  <!-- Centro: el monograma conecta sus propios extremos como una pequeña red. -->
+  <rect x="227" y="202" width="106" height="106" rx="29" fill="#E1FAF4"/>
+  <path d="M256 280v-52l48 52v-52" fill="none" stroke="#0F4C5C" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="256" cy="228" r="6" fill="#13A993"/><circle cx="304" cy="280" r="6" fill="#13A993"/>
+  <!-- Rostros abstractos dibujados con formas básicas, sin fotografías externas. -->
+  <g transform="translate(116 140)"><circle r="38" fill="#F5D7B6"/><path d="M-28 31c1-31 55-31 56 0" fill="#E9A574"/><ellipse cy="-5" rx="14" ry="17" fill="#C88961"/><path d="M-15-6v-6c1-21 34-19 31 5-11 1-15-11-17-10-1 6-6 9-14 11" fill="#293745"/></g>
+  <g transform="translate(438 152)"><circle r="36" fill="#D2E8E7"/><path d="M-28 30c2-29 54-29 56 0" fill="#629E9A"/><path d="M-19 9v-16c0-29 39-28 39 0v16" fill="#233B46"/><ellipse cy="-3" rx="13" ry="16" fill="#E8B795"/><path d="M-15-11c4-15 29-14 29 3-10-1-11-7-14-9-2 7-9 9-15 9" fill="#233B46"/></g>
+  <g transform="translate(130 366)"><circle r="35" fill="#CBE5FA"/><path d="M-27 30c1-30 53-30 54 0" fill="#7EA8CA"/><ellipse cy="-3" rx="13" ry="16" fill="#D59E7B"/><path d="M-14-8c-3-21 32-25 30 0-8-8-18-8-30 0" fill="#344558"/></g>
+  <!-- Cápsulas de texto acercan el concepto tecnológico a palabras cotidianas. -->
+  <rect x="228" y="78" width="104" height="36" rx="18" fill="#236573" stroke="#609C9E" stroke-width=".7"/><text x="280" y="101" font-size="12" text-anchor="middle" fill="#ECFFFA">Ideas</text>
+  <rect x="385" y="342" width="131" height="36" rx="18" fill="#236573" stroke="#609C9E" stroke-width=".7"/><text x="450" y="365" font-size="12" text-anchor="middle" fill="#ECFFFA">Personas</text>
+  <rect x="210" y="396" width="140" height="36" rx="18" fill="#C7F2E8"/><text x="280" y="419" font-size="12" text-anchor="middle" fill="#0F4C5C">Conocimiento</text>
+  <text x="34" y="486" font-size="12" fill="#C2E4DF">De una idea a una nueva posibilidad.</text>
+  <path d="M495 480h24m-7-7 7 7-7 7" fill="none" stroke="#B8E8DE" stroke-width="1.5"/>
+ </g>
+</svg>

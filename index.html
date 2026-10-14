@@ -1,0 +1,397 @@
+<!doctype html>
+<!-- HTML5: el doctype evita que el navegador use modos antiguos de interpretación. -->
+<html lang="es-MX">
+<head>
+  <!-- UTF-8 conserva tildes, signos y la escritura exacta de NexoBajío. -->
+  <meta charset="UTF-8">
+  <!-- viewport hace que el ancho móvil coincida con el dispositivo; no impide el zoom. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NexoBajío | Conectamos personas con tecnología</title>
+  <meta name="description" content="NexoBajío es una comunidad tecnológica que conecta personas, conocimiento y tecnología mediante eventos, conferencias, talleres y colaboración.">
+  <meta name="theme-color" content="#0F4C5C">
+  <!-- Open Graph ofrece título y descripción al compartir. Al publicar, añade og:url,
+       canonical y una og:image con URL absoluta. No declaramos un dominio inventado. -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="NexoBajío">
+  <meta property="og:title" content="NexoBajío | Conectamos personas con tecnología">
+  <meta property="og:description" content="Una comunidad del Bajío para aprender, compartir y resolver problemas reales con tecnología.">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <!-- El orden de CSS es intencional: normalizar, definir variables, diseñar y adaptar. -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- Este enlace aparece al recibir foco y permite saltar el menú con teclado. -->
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <!-- SVG local reutilizable. aria-hidden evita anunciar decoración al lector de pantalla. -->
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <!-- Símbolo arrow: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <!-- Símbolo down: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-down" viewBox="0 0 24 24"><path d="M12 4v16m-6-6 6 6 6-6"/></symbol>
+    <!-- Símbolo up: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-up" viewBox="0 0 24 24"><path d="M12 20V4m-6 6 6-6 6 6"/></symbol>
+    <!-- Símbolo plus: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <!-- Símbolo code: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></symbol>
+    <!-- Símbolo spark: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-spark" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z"/></symbol>
+    <!-- Símbolo shield: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></symbol>
+    <!-- Símbolo network: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-network" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="2" y="16" width="6" height="5" rx="1"/><rect x="16" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/></symbol>
+    <!-- Símbolo chip: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 3v3m6-3v3M9 18v3m6-3v3M3 9h3m-3 6h3m12-6h3m-3 6h3"/><rect x="10" y="10" width="4" height="4"/></symbol>
+    <!-- Símbolo window: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-window" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></symbol>
+    <!-- Símbolo chart: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 3v18h17M8 16v-4m5 4V7m5 9V4"/></symbol>
+    <!-- Símbolo cloud: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-cloud" viewBox="0 0 24 24"><path d="M7 18a5 5 0 0 1-1-9.9A6 6 0 0 1 18 8a5 5 0 0 1 0 10H7Z"/></symbol>
+    <!-- Símbolo bolt: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-7l1-7Z"/></symbol>
+    <!-- Símbolo bulb: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-bulb" viewBox="0 0 24 24"><path d="M8 16c0-2-3-3-3-7a7 7 0 0 1 14 0c0 4-3 5-3 7M8 16h8m-8 3h8m-6 3h4"/></symbol>
+    <!-- Símbolo people: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-people" viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m2-17a3 3 0 0 1 0 6m1 3a5 5 0 0 1 3 5v3"/></symbol>
+    <!-- Símbolo person: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-person" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/></symbol>
+    <!-- Símbolo mic: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></symbol>
+    <!-- Símbolo tools: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-tools" viewBox="0 0 24 24"><path d="m14 4 3-2-1 5 3 1 3-3a6 6 0 0 1-8 8l-9 9-3-3 9-9a6 6 0 0 1 3-6Z"/></symbol>
+    <!-- Símbolo book: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M12 5v16M3 3c4 0 6 0 9 2 3-2 5-2 9-2v16c-4 0-6 0-9 2-3-2-5-2-9-2V3Z"/></symbol>
+    <!-- Símbolo chat: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-chat" viewBox="0 0 24 24"><path d="M21 11a9 9 0 0 1-9 9H3l2-5a9 9 0 1 1 16-4Z"/><path d="M8 10h8m-8 4h5"/></symbol>
+    <!-- Símbolo monitor: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-monitor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M12 17v5m-5 0h10"/></symbol>
+    <!-- Símbolo pin: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 0 1 14 0Z"/><circle cx="12" cy="10" r="2"/></symbol>
+    <!-- Símbolo clock: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></symbol>
+    <!-- Símbolo mail: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 8L22 6"/></symbol>
+    <!-- Símbolo check: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <!-- Símbolo globe: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></symbol>
+    <!-- Símbolo target: se reutiliza con <use> para no repetir su geometría. -->
+    <symbol id="icon-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+  </svg>
+
+  <!-- header contiene la cabecera. class agrupa estilos; id identifica un elemento único. -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="NexoBajío, ir al inicio"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="12" fill="#0F4C5C"/><path d="M12 28V12l16 16V12" fill="none" stroke="#6CE4D1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="white"/><circle cx="28" cy="28" r="3" fill="white"/></svg><span>NexoBajío<span class="brand-dot">.</span></span></a>
+      <!-- button ejecuta una acción. aria-controls enlaza el botón con su menú. -->
+      <button id="menu-button" class="menu-button" type="button" aria-label="Abrir menú" aria-controls="main-navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <!-- nav identifica un grupo de enlaces de navegación. Nunca usamos href="#" vacío. -->
+      <nav id="main-navigation" class="main-navigation" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#tecnologia">Tecnología</a>
+        <a href="#comunidad">Comunidad</a>
+        <a href="#contacto">Contacto</a>
+        <a class="button button-small button-primary nav-cta" href="#contacto" data-contact-subject="Quiero unirme a NexoBajío">Únete a NexoBajío<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- main contiene el contenido principal. tabindex=-1 permite recibir el salto de foco. -->
+  <main id="contenido" tabindex="-1">
+    <!-- section agrupa un tema y se relaciona con su encabezado mediante aria-labelledby. -->
+    <section id="inicio" class="hero section-anchor" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>Comunidad tecnológica · Bajío</p>
+          <h1 id="hero-title">Conectamos<br>personas con<br><span>tecnología.</span></h1>
+          <p class="hero-description">NexoBajío es una comunidad donde aprendemos, compartimos y utilizamos la tecnología para resolver problemas reales.</p>
+          <div class="button-row">
+            <a class="button button-primary" href="#eventos">Conoce nuestros eventos<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a>
+            <a class="button button-secondary" href="#contacto" data-contact-subject="Quiero unirme a la comunidad">Únete a la comunidad</a>
+          </div>
+          <p class="hero-footnote">Tu curiosidad es el mejor punto de partida.</p>
+        </div>
+        <!-- La ilustración SVG está incluida: no depende de imágenes ni servidores externos. -->
+        <div class="hero-visual">
+          <img src="assets/images/conexiones.svg" width="560" height="520" alt="Personas, ideas y conocimiento conectados alrededor de NexoBajío.">
+          <div class="visual-caption"><span class="caption-dot" aria-hidden="true"></span><span>Un punto de encuentro.<br><strong>Muchas posibilidades.</strong></span><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></div>
+        </div>
+      </div>
+      <div class="container hero-bottom">
+        <p>La tecnología se entiende mejor <strong>en comunidad.</strong></p>
+        <a class="text-link" href="#nosotros">Descubre NexoBajío<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-down"></use></svg></a>
+      </div>
+    </section>
+
+    <section id="nosotros" class="section section-anchor" aria-labelledby="about-title">
+      <div class="container about-grid">
+        <div data-reveal>
+          <p class="eyebrow">01 / El punto de encuentro</p>
+          <h2 id="about-title">La tecnología empieza<br>con las personas.</h2>
+        </div>
+        <div class="about-copy" data-reveal>
+          <p>NexoBajío es una comunidad tecnológica nacida en el Bajío con el objetivo de acercar las Tecnologías de la Información a estudiantes, profesionales, empresas y personas interesadas en aprender y utilizar tecnología.</p>
+          <p>Creemos en las preguntas que abren puertas, el conocimiento que se comparte y las conexiones que nos ayudan a resolver problemas cotidianos, profesionales y empresariales.</p>
+          <div class="connection-line" aria-label="Personas conectadas con conocimiento y tecnología"><span>Personas</span><span aria-hidden="true">↔</span><span>Conocimiento</span><span aria-hidden="true">↔</span><span>Tecnología</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="que-hacemos" class="section section-soft" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div><p class="eyebrow">02 / Lo que nos mueve</p><h2 id="services-title">Aprender. Compartir. Conectar.</h2></div>
+          <p>¿Qué hacemos? Creamos espacios donde una pregunta puede convertirse en tu siguiente gran idea.</p>
+        </div>
+        <div class="services-grid">
+          <!-- article reúne un servicio que puede entenderse por sí mismo. -->
+          <article class="service-card" data-reveal>
+            <div class="icon-box"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-mic"></use></svg></div>
+            <h3>Conferencias</h3>
+            <p>Ideas que abren conversaciones. Charlas con especialistas sobre tecnología, innovación y tendencias.</p>
+          </article>
+          <!-- article reúne un servicio que puede entenderse por sí mismo. -->
+          <article class="service-card" data-reveal>
+            <div class="icon-box"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-tools"></use></svg></div>
+            <h3>Talleres</h3>
+            <p>Aprender haciendo. Actividades prácticas para descubrir herramientas y llevarte nuevas habilidades.</p>
+          </article>
+          <!-- article reúne un servicio que puede entenderse por sí mismo. -->
+          <article class="service-card" data-reveal>
+            <div class="icon-box"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-chat"></use></svg></div>
+            <h3>Meetups</h3>
+            <p>Un buen lugar para coincidir. Encuentros con personas que comparten tu curiosidad por la tecnología.</p>
+          </article>
+          <!-- article reúne un servicio que puede entenderse por sí mismo. -->
+          <article class="service-card" data-reveal>
+            <div class="icon-box"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-people"></use></svg></div>
+            <h3>Networking</h3>
+            <p>Conexiones que suman. Vinculamos a profesionales, empresas, estudiantes y emprendedores.</p>
+          </article>
+          <!-- article reúne un servicio que puede entenderse por sí mismo. -->
+          <article class="service-card" data-reveal>
+            <div class="icon-box"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-book"></use></svg></div>
+            <h3>Capacitación</h3>
+            <p>Un paso más en tu camino. Espacios para desarrollar habilidades digitales, desde lo básico.</p>
+          </article>
+          <!-- article reúne un servicio que puede entenderse por sí mismo. -->
+          <article class="service-card" data-reveal>
+            <div class="icon-box"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-bulb"></use></svg></div>
+            <h3>Orientación TI</h3>
+            <p>Tus dudas también tienen lugar. Buscamos ayudarte a entender un problema y encontrar orientación.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="tecnologia" class="section section-anchor" aria-labelledby="technology-title">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div><p class="eyebrow">03 / Áreas de tecnología</p><h2 id="technology-title">Un mundo por descubrir.</h2></div>
+          <p>Encuentra ese tema que despierta tu curiosidad. No necesitas saber por dónde empezar: para eso estamos.</p>
+        </div>
+        <div class="topics-grid">
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-spark"></use></svg><div><h3>Inteligencia Artificial</h3><p>De la curiosidad a los usos cotidianos.</p></div></article>
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-window"></use></svg><div><h3>Desarrollo Web</h3><p>Sitios y experiencias para conectar.</p></div></article>
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-code"></use></svg><div><h3>Programación</h3><p>Ideas que se convierten en soluciones.</p></div></article>
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-shield"></use></svg><div><h3>Ciberseguridad</h3><p>Hábitos para cuidar tu vida digital.</p></div></article>
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-network"></use></svg><div><h3>Redes</h3><p>Conexiones que hacen todo posible.</p></div></article>
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-chip"></use></svg><div><h3>Hardware</h3><p>Conoce lo que hay dentro de tu equipo.</p></div></article>
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-monitor"></use></svg><div><h3>Software</h3><p>Herramientas para trabajar mejor.</p></div></article>
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-target"></use></svg><div><h3>Marketing Digital</h3><p>Acerca tus ideas a más personas.</p></div></article>
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-chart"></use></svg><div><h3>Datos</h3><p>Información para entender y decidir.</p></div></article>
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-bolt"></use></svg><div><h3>Automatización</h3><p>Menos tareas repetidas, más tiempo.</p></div></article>
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-cloud"></use></svg><div><h3>Cloud Computing</h3><p>Servicios y proyectos en la nube.</p></div></article>
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-bulb"></use></svg><div><h3>Energías y tecnología</h3><p>Soluciones para un futuro eficiente.</p></div></article>
+          <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-people"></use></svg><div><h3>Emprendimiento tecnológico</h3><p>Del primer problema a una propuesta.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="eventos" class="section section-soft section-anchor" aria-labelledby="events-title">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div><p class="eyebrow">04 / Nos vemos para aprender</p><h2 id="events-title">Próximos eventos.</h2></div>
+          <p>Charlas que inspiran, talleres para practicar y encuentros para conocer a tu comunidad.</p>
+        </div>
+        <p class="notice" id="events-demo-notice">DATOS DE DEMOSTRACIÓN · Los eventos marcados DEMO son ejemplos, no convocatorias reales.</p>
+        <!-- data-event-filter entrega una categoría al controlador. aria-pressed expresa selección. -->
+        <div id="event-filters" class="event-filters" role="group" aria-label="Filtrar eventos por formato">
+          <button type="button" data-event-filter="all" aria-pressed="true">Todos</button>
+          <button type="button" data-event-filter="Charla" aria-pressed="false">Charlas</button>
+          <button type="button" data-event-filter="Taller" aria-pressed="false">Talleres</button>
+          <button type="button" data-event-filter="Meetup" aria-pressed="false">Meetups</button>
+        </div>
+        <!-- VACÍO A PROPÓSITO: EventView crea las tarjetas desde EventModel mediante EventController. -->
+        <div id="events-grid" class="events-grid"></div>
+        <!-- role=status comunica cambios de filtro sin mover el foco del visitante. -->
+        <p id="events-status" class="sr-only" role="status" aria-live="polite"></p>
+        <noscript><p class="notice">Activa JavaScript para consultar la agenda de demostración.</p></noscript>
+      </div>
+    </section>
+
+    <section id="orientacion" class="section help-section" aria-labelledby="help-title">
+      <div class="container help-layout">
+        <div class="help-intro" data-reveal>
+          <p class="eyebrow">05 / Aquí también caben tus dudas</p>
+          <h2 id="help-title">¿Tienes un problema<br>con tecnología?</h2>
+          <p>No necesitas ser experto para acercarte a NexoBajío. Nuestra comunidad busca orientarte y conectarte con personas que puedan ayudarte.</p>
+          <a class="button button-light" href="#contacto" data-contact-subject="Necesito orientación tecnológica">Cuéntanos tu problema<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a>
+        </div>
+        <div class="help-options" aria-label="Selecciona el tema sobre el que buscas orientación">
+          <!-- data-contact-subject guarda el asunto que el controlador llevará al formulario. -->
+          <button class="help-chip" type="button" data-contact-subject="Orientación: Mi computadora">Mi computadora<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
+          <!-- data-contact-subject guarda el asunto que el controlador llevará al formulario. -->
+          <button class="help-chip" type="button" data-contact-subject="Orientación: Internet / redes">Internet / redes<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
+          <!-- data-contact-subject guarda el asunto que el controlador llevará al formulario. -->
+          <button class="help-chip" type="button" data-contact-subject="Orientación: Software">Software<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
+          <!-- data-contact-subject guarda el asunto que el controlador llevará al formulario. -->
+          <button class="help-chip" type="button" data-contact-subject="Orientación: Desarrollo web">Desarrollo web<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
+          <!-- data-contact-subject guarda el asunto que el controlador llevará al formulario. -->
+          <button class="help-chip" type="button" data-contact-subject="Orientación: Inteligencia Artificial">Inteligencia Artificial<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
+          <!-- data-contact-subject guarda el asunto que el controlador llevará al formulario. -->
+          <button class="help-chip" type="button" data-contact-subject="Orientación: Seguridad digital">Seguridad digital<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
+          <!-- data-contact-subject guarda el asunto que el controlador llevará al formulario. -->
+          <button class="help-chip" type="button" data-contact-subject="Orientación: Herramientas empresariales">Herramientas empresariales<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
+          <!-- data-contact-subject guarda el asunto que el controlador llevará al formulario. -->
+          <button class="help-chip" type="button" data-contact-subject="Orientación: Otro problema tecnológico">Otro problema tecnológico<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="comunidad" class="section section-anchor" aria-labelledby="community-title">
+      <div class="container community-layout">
+        <div class="community-art" aria-hidden="true">
+          <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span>
+          <div class="community-core"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="12" fill="#0F4C5C"/><path d="M12 28V12l16 16V12" fill="none" stroke="#6CE4D1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="white"/><circle cx="28" cy="28" r="3" fill="white"/></svg></div>
+          <span class="orbit-node node-one"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-book"></use></svg></span><span class="orbit-node node-two"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-code"></use></svg></span><span class="orbit-node node-three"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-bulb"></use></svg></span><span class="orbit-node node-four"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-people"></use></svg></span>
+          <p>Tu lugar también está aquí.</p>
+        </div>
+        <div data-reveal>
+          <p class="eyebrow">06 / Una comunidad abierta</p>
+          <h2 id="community-title">Distintos caminos.<br>La misma curiosidad.</h2>
+          <p class="community-quote">“No importa cuánto sepas de tecnología. Siempre hay algo que aprender y algo que compartir.”</p>
+          <ul class="profile-list">
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-check"></use></svg><span>Estudiantes</span></li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-check"></use></svg><span>Profesionales</span></li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-check"></use></svg><span>Empresas</span></li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-check"></use></svg><span>Emprendedores</span></li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-check"></use></svg><span>Docentes</span></li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-check"></use></svg><span>Desarrolladores</span></li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-check"></use></svg><span>Personas curiosas por la tecnología</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="participa" class="section section-soft" aria-labelledby="participate-title">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div><p class="eyebrow">07 / Da el siguiente paso</p><h2 id="participate-title">Hay muchas formas de sumar.</h2></div>
+          <p>Ven con una pregunta, una idea o algo que quieras compartir.</p>
+        </div>
+        <div class="participation-grid">
+          <!-- Los enlaces conservan href útil incluso antes de ejecutar JavaScript. -->
+          <article class="participation-card"><span class="step-number">01</span><h3>Asistir</h3><p>Participa en nuestros eventos, conoce a otras personas y descubre nuevas posibilidades.</p><a class="text-link" href="#eventos">Explorar eventos<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a></article>
+          <article class="participation-card"><span class="step-number">02</span><h3>Aprender</h3><p>Acércate a talleres y conferencias. Construye habilidades, una experiencia a la vez.</p><a class="text-link" href="#contacto" data-contact-subject="Quiero aprender en talleres y conferencias">Quiero aprender<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a></article>
+          <article class="participation-card"><span class="step-number">03</span><h3>Compartir</h3><p>Conviértete en ponente, mentor o colaborador. Tu experiencia puede abrirle camino a alguien.</p><a class="text-link" href="#contacto" data-contact-subject="Quiero ser ponente, mentor o colaborador">Quiero compartir<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a></article>
+        </div>
+        <div class="participation-cta"><p>Las mejores conexiones empiezan con una conversación.</p><a class="button button-primary" href="#contacto" data-contact-subject="Quiero participar en NexoBajío">Quiero participar<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a></div>
+      </div>
+    </section>
+
+    <section id="preguntas" class="section" aria-labelledby="faq-title">
+      <div class="container faq-layout">
+        <div data-reveal><p class="eyebrow">08 / Antes de sumarte</p><h2 id="faq-title">Buenas preguntas.<br>Respuestas claras.</h2><p>Esto es lo que quizá te estés preguntando sobre NexoBajío.</p><a class="text-link" href="#contacto">Tengo otra pregunta<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a></div>
+        <!-- FAQView genera botones accesibles y paneles a partir de community.js. -->
+        <div id="faq-list" class="faq-list"></div>
+        <noscript><p>Activa JavaScript para desplegar las preguntas frecuentes.</p></noscript>
+      </div>
+    </section>
+
+    <section id="contacto" class="section contact-section section-anchor" aria-labelledby="contact-title">
+      <div class="container contact-layout">
+        <div class="contact-intro" data-reveal>
+          <p class="eyebrow">09 / Hablemos</p>
+          <h2 id="contact-title">Tu próxima conexión<br>empieza aquí.</h2>
+          <p>¿Una duda, una propuesta o ganas de sumarte? Nos gustaría conocer tu idea.</p>
+          <div class="contact-detail"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-pin"></use></svg><span>Desde el Bajío, para conectar contigo.</span></div>
+          <div class="contact-detail"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg><div><p data-contact-email>hola@nexobajio.example</p><small data-contact-demo>Correo de ejemplo, aún no habilitado.</small></div></div>
+          <div class="contact-note">Una comunidad se construye<br><strong>con personas como tú.</strong></div>
+        </div>
+        <!-- form agrupa los controles. novalidate permite mostrar mensajes propios
+             en español; required conserva semántica y se verifica en validators.js. -->
+        <form id="contact-form" class="contact-form" novalidate aria-describedby="form-demo-note">
+          <h3>Conversemos</h3>
+          <p class="form-intro">Los campos con <span aria-hidden="true">*</span> son obligatorios.</p>
+          <div class="form-grid">
+            <!-- label y for vinculan la etiqueta con el id del control. name identifica el dato. -->
+            <div class="field"><label for="contact-name">Nombre <span aria-hidden="true">*</span></label><input id="contact-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="80" aria-describedby="contact-name-error" placeholder="¿Cómo te llamas?"><p id="contact-name-error" class="field-error"></p></div>
+            <div class="field"><label for="contact-email">Correo <span aria-hidden="true">*</span></label><input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="contact-email-error" placeholder="tu@correo.com"><p id="contact-email-error" class="field-error"></p></div>
+            <div class="field"><label for="contact-phone">Teléfono <span class="optional">(opcional)</span></label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" maxlength="30" aria-describedby="contact-phone-error" placeholder="Tu número de contacto"><p id="contact-phone-error" class="field-error"></p></div>
+            <div class="field"><label for="contact-type">Tipo de usuario <span aria-hidden="true">*</span></label><select id="contact-type" name="userType" required aria-describedby="contact-type-error"><option value="">Selecciona tu perfil</option><option>Estudiante</option><option>Profesional</option><option>Empresa</option><option>Emprendedor</option><option>Otro</option></select><p id="contact-type-error" class="field-error"></p></div>
+            <div class="field full-width"><label for="contact-subject">Asunto <span aria-hidden="true">*</span></label><input id="contact-subject" name="subject" type="text" required minlength="3" maxlength="120" aria-describedby="contact-subject-error" placeholder="¿De qué te gustaría hablar?"><p id="contact-subject-error" class="field-error"></p></div>
+            <div class="field full-width"><label for="contact-message">Mensaje <span aria-hidden="true">*</span></label><textarea id="contact-message" name="message" rows="5" required minlength="20" maxlength="2000" aria-describedby="message-hint contact-message-error" placeholder="Cuéntanos tu idea, duda o problema…"></textarea><small id="message-hint">Entre 20 y 2000 caracteres. Evita compartir contraseñas.</small><p id="contact-message-error" class="field-error"></p></div>
+          </div>
+          <!-- La simulación se comunica antes y después de enviar, sin prometer recepción. -->
+          <p id="form-demo-note" class="form-demo-note">Formulario de demostración: valida los datos, pero no envía ni guarda información.</p>
+          <!-- Deshabilitado hasta conectar el listener: sin JS no se envían datos por accidente. -->
+          <button class="button button-primary form-submit" type="submit" disabled>Enviar mensaje<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
+          <!-- Región viva para confirmar o explicar errores; tabindex permite enfocar el resultado. -->
+          <p id="contact-status" class="form-status" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+          <noscript><p class="notice">Necesitas activar JavaScript para validar este formulario de demostración.</p></noscript>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- footer contiene información final y una navegación secundaria con nombre propio. -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><a class="brand footer-brand" href="#inicio" aria-label="NexoBajío, volver al inicio"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="12" fill="#0F4C5C"/><path d="M12 28V12l16 16V12" fill="none" stroke="#6CE4D1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="white"/><circle cx="28" cy="28" r="3" fill="white"/></svg><span>NexoBajío<span class="brand-dot">.</span></span></a><p class="footer-tagline">Conectamos personas<br>con tecnología.</p></div>
+      <nav aria-label="Explorar NexoBajío"><h2>Explora</h2><a href="#nosotros">Nosotros</a><a href="#eventos">Eventos</a><a href="#tecnologia">Tecnología</a><a href="#comunidad">Comunidad</a></nav>
+      <div><h2>Sigamos conectados</h2><ul id="social-links"><li>Canales por anunciar</li></ul></div>
+      <div><h2>¿Conversamos?</h2><p data-contact-email>hola@nexobajio.example</p><small data-contact-demo>Correo de ejemplo, por configurar.</small><a class="footer-contact" href="#contacto">Ir al formulario<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a></div>
+    </div>
+    <div class="container footer-bottom"><p>© <span id="current-year"></span> NexoBajío. Todos los derechos reservados.</p><p>Personas + conocimiento + tecnología</p></div>
+  </footer>
+
+  <!-- Un enlace funciona con teclado y respeta el comportamiento nativo del historial. -->
+  <a id="back-to-top" class="back-to-top" href="#inicio" aria-label="Volver arriba" hidden><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-up"></use></svg></a>
+  <!-- dialog ofrece modalidad y cierre con Escape sin implementar un foco atrapado a mano. -->
+  <dialog id="event-dialog" class="event-dialog" aria-labelledby="event-dialog-title">
+    <div class="dialog-top"><p class="eyebrow">Un encuentro para conectar</p><button type="button" class="dialog-close" data-close-dialog aria-label="Cerrar información del evento">×</button></div>
+    <h2 id="event-dialog-title"></h2><div id="event-dialog-body"></div>
+  </dialog>
+
+  <!-- APP-SCRIPTS:START -->
+  <!-- defer conserva el orden y espera al HTML. Esta versión abre directamente con file://.
+       app.offline.js se genera desde los módulos; los datos se editan sin reconstruirlo. -->
+  <script defer src="js/data/events.js"></script>
+  <script defer src="js/data/community.js"></script>
+  <script defer src="js/app.offline.js"></script>
+  <!-- APP-SCRIPTS:END -->
+</body>
+</html>

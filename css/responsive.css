@@ -1,0 +1,151 @@
+/* Una media query aplica reglas únicamente cuando se cumple su condición.
+   No detectamos marcas de dispositivos; respondemos al espacio disponible. */
+
+/* Menú móvil/tablet. El JS emplea la frontera complementaria min-width:64rem. */
+@media (max-width: 63.999rem) {
+  .header-inner { min-height: 4.6rem; }
+  .menu-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-small);
+    color: var(--color-primary);
+    background: var(--color-white);
+  }
+  .menu-button span { display: block; width: 18px; height: 2px; background: currentColor; }
+  .menu-button[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .menu-button[aria-expanded="true"] span:first-child { transform: translateY(7px) rotate(45deg); }
+  .menu-button[aria-expanded="true"] span:last-child { transform: translateY(-7px) rotate(-45deg); }
+  .main-navigation {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15rem;
+    max-height: calc(100dvh - 4.6rem);
+    padding: 1rem var(--page-gutter) 1.5rem;
+    overflow-y: auto;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-white);
+    box-shadow: var(--shadow-soft);
+  }
+  .main-navigation.is-open { display: flex; }
+  .main-navigation > a:not(.button) { padding: 0.7rem 0.2rem; font-size: 0.95rem; }
+  .nav-cta { margin-top: 0.5rem; }
+  .hero-grid { gap: 2rem; grid-template-columns: 1.1fr 1fr; }
+  .hero h1 { font-size: clamp(2.8rem, 5.4vw, 3.7rem); }
+  .hero .button-row { flex-direction: column; align-items: flex-start; }
+  .hero-bottom { margin-top: 3rem; }
+  .about-grid, .help-layout, .community-layout, .faq-layout, .contact-layout { gap: 2.5rem; }
+  .service-card { padding: 1.5rem; }
+  .topics-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .topic-card:last-child { grid-column: span 3; }
+  .event-card-top, .event-card-body { padding: 1.15rem; }
+  .event-card-body h3 { font-size: 1.15rem; }
+  .help-layout { grid-template-columns: 1fr 1fr; }
+  .help-options { grid-template-columns: 1fr; }
+  .help-chip { min-height: 3rem; padding: 0.75rem 1rem; }
+  .community-art { min-height: 23rem; }
+  .contact-layout { grid-template-columns: 0.9fr 1.2fr; }
+  .footer-grid { grid-template-columns: 1.2fr 0.8fr; gap: 2.5rem; }
+}
+
+/* Tablets pequeñas: reducimos columnas antes de que los textos queden apretados. */
+@media (max-width: 47.999rem) {
+  .hero-grid { grid-template-columns: 1fr; gap: 2.8rem; }
+  .hero-content { max-width: 36rem; }
+  .hero h1 { font-size: clamp(2.8rem, 8.5vw, 4.2rem); }
+  .hero .button-row { flex-direction: row; align-items: stretch; }
+  .hero-visual { width: min(100%, 34rem); justify-self: center; }
+  .hero-bottom { align-items: flex-start; flex-direction: column; gap: 0.4rem; }
+  .section-heading, .about-grid, .help-layout, .community-layout, .faq-layout, .contact-layout { grid-template-columns: 1fr; }
+  .section-heading { gap: 1rem; }
+  .section-heading > p { max-width: 34rem; justify-self: start; }
+  .about-grid { gap: 1.7rem; }
+  .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topic-card:last-child { grid-column: span 2; }
+  .events-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .help-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .help-chip { min-height: 3.75rem; }
+  .community-art { width: min(100%, 28rem); min-height: 23rem; justify-self: center; }
+  .community-layout { gap: 2.5rem; }
+  .participation-grid { gap: 1.2rem; }
+  .participation-card h3 { font-size: 1.35rem; }
+  .participation-cta { align-items: flex-start; flex-direction: column; gap: 1rem; }
+  .faq-layout { gap: 2rem; }
+  .contact-note { margin-top: 1.5rem; }
+  .contact-intro > p:not(.eyebrow) { max-width: 34rem; }
+  .contact-form { padding: 1.75rem; }
+}
+
+/* Teléfonos: una columna, objetivos táctiles amplios y controles a 16px o más. */
+@media (max-width: 35.999rem) {
+  .brand { font-size: 1.3rem; }
+  .hero { padding-top: 2.5rem; }
+  .hero h1 { font-size: clamp(2.55rem, 9.5vw, 3.45rem); }
+  .hero .eyebrow { font-size: 0.61rem; letter-spacing: 0.1em; }
+  .hero .button-row { flex-direction: column; }
+  .hero .button { width: 100%; }
+  .hero-description { font-size: 1rem; }
+  .visual-caption { right: 0.75rem; left: 0.75rem; padding: 0.85rem 1rem; }
+  .services-grid, .events-grid, .participation-grid { grid-template-columns: 1fr; }
+  .service-card { padding: 1.6rem; }
+  .topics-grid { grid-template-columns: 1fr; }
+  .topic-card { padding-block: 1.2rem; }
+  .topic-card:last-child { grid-column: auto; }
+  .topic-card p { max-width: none; }
+  .topic-card h3 { font-size: 0.95rem; }
+  .event-filters { gap: 0.4rem; }
+  .event-filters button { flex: 1; padding-inline: 0.7rem; }
+  .event-card-top, .event-card-body { padding: 1.5rem; }
+  .event-card-body h3 { font-size: 1.3rem; }
+  .event-meta { font-size: 0.82rem; }
+  .help-options { grid-template-columns: 1fr; }
+  .help-chip { min-height: 3.5rem; font-size: 0.88rem; }
+  .participation-card { padding-bottom: 1rem; }
+  .participation-grid { gap: 1rem; }
+  .faq-button { gap: 0.7rem; font-size: 0.9rem; }
+  .faq-panel { padding-left: 1.6rem; padding-right: 0.2rem; }
+  .contact-form { padding: 1.25rem; }
+  .form-grid { grid-template-columns: 1fr; }
+  .field input, .field select, .field textarea { font-size: 1rem; }
+  .contact-note { font-size: 1rem; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; gap: 0.5rem; }
+  .footer-grid nav > a, .footer-grid li { min-height: 2.75rem; }
+  .detail-list > div { grid-template-columns: 1fr; gap: 0.2rem; }
+  .event-dialog .button { width: 100%; }
+}
+
+/* Preferencia del sistema: eliminamos movimiento sin quitar contenido ni funciones. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .button:hover, .service-card:hover { transform: none; }
+}
+
+/* Impresión opcional: ocultamos controles interactivos y dejamos el texto legible. */
+@media print {
+  .site-header, .button, .back-to-top, .event-filters, .contact-form, .hero-visual, .community-art, .site-footer { display: none; }
+  body { color: #000000; background: #FFFFFF; font-size: 11pt; }
+  .container { width: 100%; }
+  .section { padding-block: 1.5rem; }
+  .help-section { color: #000000; background: #FFFFFF; }
+  .help-section h2 { color: #000000; }
+  .hero-grid, .help-layout, .community-layout, .contact-layout { grid-template-columns: 1fr; }
+  .faq-panel[hidden] { display: block !important; }
+  .service-card, .event-card { break-inside: avoid; }
+}

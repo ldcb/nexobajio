@@ -1,0 +1,38 @@
+/*
+ * :root representa la raíz del documento. Sus variables se heredan a toda la web.
+ * Cambiar un color aquí actualiza los componentes que usan var(--nombre).
+ */
+:root {
+  --color-primary: #0F4C5C; /* Azul petróleo: botones y bloques principales. */
+  --color-accent: #14B8A6; /* Turquesa: decoración; no texto pequeño sobre blanco. */
+  --color-accent-dark: #08766B; /* Variante oscura con contraste para textos. */
+  --color-ink: #0F172A; /* Azul oscuro para títulos y párrafos destacados. */
+  --color-text: #425366; /* Texto general: mantiene contraste sobre fondos claros. */
+  --color-muted: #536578; /* Información secundaria que sigue siendo legible. */
+  --color-white: #FFFFFF;
+  --color-soft: #F8FAFC;
+  --color-mint: #E5F5F0;
+  --color-border: #DCE5E9;
+  --color-field-border: #84949F; /* Contorno de controles perceptible sobre blanco. */
+  --color-error: #AC263C;
+  --color-error-soft: #FFF1F3;
+  --color-success: #08624E;
+  --color-success-soft: #E9F9F1;
+  --color-focus: #08766B;
+
+  /* Fuentes locales: no se descarga Google Fonts, y la página funciona sin internet.
+     Inter/Manrope se usan sólo si ya están instaladas; después viene la del sistema. */
+  --font-sans: 'Inter', 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* rem se basa en el tamaño de letra raíz: escala mejor al ampliar el texto.
+     px se reserva para bordes finos; % se adapta al contenedor; vw al ancho visible;
+     vh aparece en el diálogo para limitar su alto a la ventana. */
+  --container-width: 76rem;
+  --page-gutter: clamp(1.25rem, 4vw, 3.25rem);
+  --section-space: clamp(4rem, 7.5vw, 7rem);
+  --radius-small: 0.65rem;
+  --radius-card: 1.25rem;
+  --radius-large: 2rem;
+  --shadow-soft: 0 10px 32px rgb(15 76 92 / 5%);
+  --transition-fast: 180ms ease;
+}
