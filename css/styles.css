@@ -8,7 +8,7 @@ body {
   font-size: 1rem;
   line-height: 1.65;
   color: var(--color-text);
-  background: var(--color-white);
+  background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
 }
 /* min() combina un máximo de lectura con el ancho disponible en pantallas pequeñas. */
@@ -47,7 +47,7 @@ h3 {
 }
 ::selection {
   color: var(--color-primary);
-  background: #C7F2E8;
+  background: var(--color-selection);
 }
 .icon {
   width: 1.25rem;
@@ -84,7 +84,7 @@ h3 {
   z-index: 100;
   padding: 0.8rem 1rem;
   color: var(--color-white);
-  background: var(--color-primary);
+  background: var(--color-brand);
   transform: translateY(-160%);
   border-radius: var(--radius-small);
 }
@@ -135,7 +135,7 @@ h3 {
   line-height: 1.35;
   text-decoration: none;
   text-align: center;
-  /* Sólo animamos propiedades pequeñas; nunca el tamaño ni el flujo de la página. */
+  /* Solo animamos propiedades pequeñas; nunca el tamaño ni el flujo de la página. */
   transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 .button:hover {
@@ -148,23 +148,23 @@ h3 {
 }
 .button-primary {
   color: var(--color-white);
-  background: var(--color-primary);
+  background: var(--color-brand);
 }
 .button-primary:hover {
-  background: #0A3B49;
+  background: var(--color-brand-hover);
   box-shadow: var(--shadow-soft);
 }
 .button-secondary {
   color: var(--color-primary);
   border-color: var(--color-border);
-  background: var(--color-white);
+  background: var(--color-surface);
 }
 .button-secondary:hover {
   background: var(--color-soft);
 }
 .button-light {
   color: var(--color-primary);
-  background: var(--color-white);
+  background: var(--color-surface);
 }
 .button-light:hover {
   background: var(--color-mint);
@@ -210,7 +210,7 @@ h3 {
   top: 0;
   z-index: 30;
   border-bottom: 1px solid var(--color-border);
-  background: rgb(255 255 255 / 97%);
+  background: var(--color-header-bg);
 }
 .header-inner {
   display: flex;
@@ -258,9 +258,38 @@ h3 {
 .menu-button {
   display: none;
 }
+/* order coloca el botón de tema al final de la cabecera en escritorio. */
+.main-navigation {
+  margin-left: auto;
+}
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  order: 1;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-small);
+  color: var(--color-primary);
+  background: var(--color-surface);
+  transition: background var(--transition-fast);
+}
+.theme-toggle:hover {
+  background: var(--color-soft);
+}
+/* La luna invita a oscurecer; el sol, a volver al modo claro. */
+.theme-toggle .icon-sun,
+[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
 .hero {
   padding-top: clamp(2.8rem, 5vw, 5.25rem);
-  background: var(--color-white);
+  background: var(--color-bg);
 }
 .hero-grid {
   display: grid;
@@ -311,7 +340,7 @@ h3 {
   border: 1px solid var(--color-border);
   border-radius: 1rem;
   color: var(--color-muted);
-  background: var(--color-white);
+  background: var(--color-surface);
   box-shadow: var(--shadow-soft);
   font-size: 0.8rem;
   line-height: 1.6;
@@ -370,7 +399,7 @@ h3 {
   padding: 2rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
-  background: var(--color-white);
+  background: var(--color-surface);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 .service-card:hover {
@@ -434,10 +463,10 @@ h3 {
 /* ==================== EVENTOS Y DIÁLOGO ==================== */
 .notice {
   padding: 0.9rem 1.1rem;
-  border: 1px solid #BED6D1;
+  border: 1px solid var(--color-notice-border);
   border-radius: var(--radius-small);
   color: var(--color-primary);
-  background: #EBF6F3;
+  background: var(--color-notice-bg);
   font-size: 0.78rem;
   line-height: 1.6;
 }
@@ -453,14 +482,14 @@ h3 {
   border: 1px solid var(--color-border);
   border-radius: 3rem;
   color: var(--color-text);
-  background: var(--color-white);
+  background: var(--color-surface);
   font-size: 0.83rem;
   transition: background var(--transition-fast);
 }
 .event-filters button[aria-pressed="true"] {
-  border-color: var(--color-primary);
+  border-color: var(--color-brand);
   color: var(--color-white);
-  background: var(--color-primary);
+  background: var(--color-brand);
 }
 .events-grid {
   display: grid;
@@ -473,7 +502,7 @@ h3 {
   overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
-  background: var(--color-white);
+  background: var(--color-surface);
   box-shadow: var(--shadow-soft);
 }
 .event-card-top {
@@ -482,14 +511,14 @@ h3 {
   justify-content: space-between;
   gap: 1rem;
   padding: 1.5rem;
-  background: #E5F1EE;
+  background: var(--color-event-1);
 }
 /* nth-child cambia un detalle visual sin necesitar nuevas clases o lógica de datos. */
 .event-card:nth-child(2) .event-card-top {
-  background: #E8EFF7;
+  background: var(--color-event-2);
 }
 .event-card:nth-child(3) .event-card-top {
-  background: #F4EDE1;
+  background: var(--color-event-3);
 }
 .date-tile {
   display: flex;
@@ -498,10 +527,10 @@ h3 {
   justify-content: center;
   min-width: 5rem;
   padding: 0.65rem 0.5rem;
-  border: 1px solid rgb(15 76 92 / 8%);
+  border: 1px solid var(--color-date-border);
   border-radius: 0.75rem;
   color: var(--color-primary);
-  background: rgb(255 255 255 / 90%);
+  background: var(--color-date-bg);
 }
 .date-day {
   font-size: 2rem;
@@ -526,7 +555,7 @@ h3 {
   padding: 0.3rem 0.8rem;
   border-radius: 2rem;
   color: var(--color-primary);
-  background: var(--color-white);
+  background: var(--color-surface);
   font-size: 0.7rem;
   font-weight: 650;
 }
@@ -586,7 +615,7 @@ h3 {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   color: var(--color-text);
-  background: var(--color-white);
+  background: var(--color-surface);
   box-shadow: 0 24px 80px rgb(15 23 42 / 20%);
   overscroll-behavior: contain;
 }
@@ -611,7 +640,7 @@ h3 {
   border: 1px solid var(--color-border);
   border-radius: 50%;
   color: var(--color-ink);
-  background: var(--color-white);
+  background: var(--color-surface);
   font-size: 1.5rem;
   line-height: 1;
 }
@@ -641,7 +670,7 @@ h3 {
 /* ==================== ORIENTACIÓN Y COMUNIDAD ==================== */
 .help-section {
   color: #D7EAE9;
-  background: var(--color-primary);
+  background: var(--color-brand);
 }
 .help-layout {
   display: grid;
@@ -688,7 +717,7 @@ h3 {
 .help-chip:hover {
   background: rgb(255 255 255 / 12%);
 }
-/* En fondos oscuros cambiamos sólo la variable local del foco. */
+/* En fondos oscuros cambiamos solo la variable local del foco. */
 .help-section, .site-footer {
   --color-focus: #8CE4D3;
 }
@@ -712,7 +741,7 @@ h3 {
   top: 44%;
   left: 50%;
   aspect-ratio: 1;
-  border: 1px solid #CCE3DE;
+  border: 1px solid var(--color-line-soft);
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
@@ -737,7 +766,7 @@ h3 {
   border: 1px solid var(--color-border);
   border-radius: 1rem;
   color: var(--color-primary);
-  background: var(--color-white);
+  background: var(--color-surface);
   box-shadow: var(--shadow-soft);
 }
 .node-one { top: 12%; left: 21%; }
@@ -789,7 +818,7 @@ h3 {
   flex-direction: column;
   align-items: flex-start;
   padding-block: 1.2rem 0.2rem;
-  border-top: 1px solid #BBD2D1;
+  border-top: 1px solid var(--color-line-soft);
 }
 .step-number {
   margin-bottom: 1.2rem;
@@ -858,7 +887,7 @@ h3 {
 /* ==================== CONTACTO Y PIE ==================== */
 .contact-section {
   border-top: 1px solid var(--color-border);
-  background: #EEF6F4;
+  background: var(--color-contact-bg);
 }
 .contact-layout {
   display: grid;
@@ -885,7 +914,7 @@ h3 {
 .contact-note {
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #C8DDDA;
+  border-top: 1px solid var(--color-line-soft);
   color: var(--color-muted);
   font-size: 1.15rem;
   line-height: 1.6;
@@ -893,9 +922,9 @@ h3 {
 .contact-note strong { color: var(--color-primary); font-weight: 550; }
 .contact-form {
   padding: clamp(1.4rem, 3vw, 2.25rem);
-  border: 1px solid #D0E1DC;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
-  background: var(--color-white);
+  background: var(--color-surface);
   box-shadow: var(--shadow-soft);
 }
 .contact-form > h3 { font-size: 1.4rem; }
@@ -923,14 +952,14 @@ h3 {
   border: 1px solid var(--color-field-border);
   border-radius: 0.5rem;
   color: var(--color-ink);
-  background: var(--color-white);
+  background: var(--color-surface);
   font-size: 0.88rem;
   line-height: 1.5;
 }
 .field textarea { min-height: 8rem; resize: vertical; }
-.field input::placeholder, .field textarea::placeholder { color: #647386; opacity: 1; }
+.field input::placeholder, .field textarea::placeholder { color: var(--color-placeholder); opacity: 1; }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--color-primary); }
-.field [aria-invalid="true"] { border-color: var(--color-error); background: #FFFBFC; }
+.field [aria-invalid="true"] { border-color: var(--color-error); background: var(--color-invalid-bg); }
 .field small { display: block; margin-top: 0.4rem; color: var(--color-muted); font-size: 0.72rem; }
 .field-error { color: var(--color-error); font-size: 0.75rem; line-height: 1.5; }
 .field-error:not(:empty) { margin-top: 0.4rem; }
@@ -940,7 +969,7 @@ h3 {
 .form-status:not(:empty) { margin-top: 1rem; padding: 1rem; border-radius: var(--radius-small); }
 .form-status.is-error { color: var(--color-error); background: var(--color-error-soft); }
 .form-status.is-success { color: var(--color-success); background: var(--color-success-soft); }
-.site-footer { padding-top: 4rem; color: #C6D6DF; background: var(--color-ink); }
+.site-footer { padding-top: 4rem; color: #C6D6DF; background: var(--color-footer-bg); }
 .footer-grid {
   display: grid;
   grid-template-columns: 1.4fr 0.7fr 1fr 1.15fr;
@@ -976,14 +1005,14 @@ h3 {
   place-items: center;
   width: 2.9rem;
   height: 2.9rem;
-  border: 1px solid #8AB8AF;
+  border: 1px solid var(--color-back-border);
   border-radius: 50%;
   color: var(--color-primary);
-  background: var(--color-white);
+  background: var(--color-surface);
   box-shadow: var(--shadow-soft);
 }
 
-/* La animación ocurre sólo cuando IntersectionObserver añade la clase.
+/* La animación ocurre solo cuando IntersectionObserver añade la clase.
    No ponemos opacity:0 al contenido original: sin JS todo sigue siendo legible. */
 @keyframes reveal {
   from { opacity: 0.65; transform: translateY(10px); }

@@ -12,7 +12,7 @@ export class EventModel {
     return [...this.events].sort((a, b) => new Date(a.startsAt) - new Date(b.startsAt));
   }
 
-  // filter conserva sólo los objetos de la categoría solicitada.
+  // filter conserva solo los objetos de la categoría solicitada.
   getByCategory(category = 'all') {
     const events = this.getAll();
     return category === 'all' ? events : events.filter((event) => event.category === category);

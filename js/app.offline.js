@@ -49,7 +49,7 @@ function scrollToContact() {
 /** Funciones puras: reciben valores y devuelven errores, sin tocar la página. */
 function validateContact(values) {
   const errors = {};
-  // trim elimina espacios de los extremos: un campo con sólo espacios está vacío.
+  // trim elimina espacios de los extremos: un campo con solo espacios está vacío.
   const name = String(values.name || '').trim();
   const email = String(values.email || '').trim();
   const phone = String(values.phone || '').trim();
@@ -90,7 +90,7 @@ function validateContact(values) {
 }
 
 function isSafeWebUrl(value) {
-  // new URL interpreta la dirección. Permitimos sólo HTTPS para los canales externos.
+  // new URL interpreta la dirección. Permitimos solo HTTPS para los canales externos.
   try {
     return new URL(value).protocol === 'https:';
   } catch {
@@ -114,7 +114,7 @@ class EventModel {
     return [...this.events].sort((a, b) => new Date(a.startsAt) - new Date(b.startsAt));
   }
 
-  // filter conserva sólo los objetos de la categoría solicitada.
+  // filter conserva solo los objetos de la categoría solicitada.
   getByCategory(category = 'all') {
     const events = this.getAll();
     return category === 'all' ? events : events.filter((event) => event.category === category);
@@ -319,7 +319,7 @@ class FAQView {
   }
 
   setExpanded(id) {
-    // Sólo una respuesta permanece abierta. null cierra todas.
+    // Solo una respuesta permanece abierta. null cierra todas.
     this.container.querySelectorAll('[data-faq-id]').forEach((button) => {
       const expanded = button.dataset.faqId === id;
       button.setAttribute('aria-expanded', String(expanded));
@@ -371,7 +371,7 @@ class ContactView {
       event.preventDefault(); // Evita recargar o enviar a una dirección inexistente.
       handler(this.getValues());
     });
-    // Sólo habilitamos enviar cuando el listener ya impide una navegación real.
+    // Solo habilitamos enviar cuando el listener ya impide una navegación real.
     this.form.querySelector('[type="submit"]').disabled = false;
   }
 
@@ -401,7 +401,7 @@ class ContactView {
   }
 
   showSuccess() {
-    // No usamos fetch, almacenamiento local ni correos: sólo se simula la confirmación.
+    // No usamos fetch, almacenamiento local ni correos: solo se simula la confirmación.
     this.status.className = 'form-status is-success';
     this.status.textContent = '¡Validación correcta! Esta es una demostración: tu mensaje no se envió ni se guardó.';
     this.status.focus({ preventScroll: true });
@@ -470,7 +470,7 @@ class EventController {
 
 
 /* ===== FUENTE: js/controllers/FAQController.js ===== */
-/** CONTROLLER: conserva el id de la pregunta abierta; la vista sólo lo refleja. */
+/** CONTROLLER: conserva el id de la pregunta abierta; la vista solo lo refleja. */
 class FAQController {
   constructor(model, view) {
     this.model = model;
@@ -508,7 +508,7 @@ class ContactController {
 
       // DEMOSTRACIÓN: no hay una petición de red ni se guardan estos datos.
       // Futuro: llamar aquí a un servicio async que use fetch hacia PHP, Node.js,
-      // Firebase, Supabase o una API. Mostrar éxito sólo tras una respuesta exitosa.
+      // Firebase, Supabase o una API. Mostrar éxito solo tras una respuesta exitosa.
       // El servidor debe repetir la validación y aplicar límites de uso; una
       // validación en el navegador puede omitirse y NO constituye seguridad backend.
       this.view.showSuccess();
@@ -579,12 +579,63 @@ class NavigationController {
 }
 
 
+/* ===== FUENTE: js/controllers/ThemeController.js ===== */
+// La misma clave aparece en el script del <head> de index.html.
+const THEME_STORAGE_KEY = 'nexobajio-theme';
+
+/** CONTROLLER: alterna el modo claro/oscuro y recuerda la elección del visitante. */
+class ThemeController {
+  constructor() {
+    this.root = document.documentElement;
+    this.button = document.querySelector('#theme-toggle');
+    this.themeColor = document.querySelector('meta[name="theme-color"]');
+    this.systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+  }
+
+  apply(theme) {
+    const dark = theme === 'dark';
+    // data-theme activa las variables de color definidas en variables.css.
+    this.root.dataset.theme = dark ? 'dark' : 'light';
+    this.button.setAttribute('aria-pressed', String(dark));
+    this.themeColor.setAttribute('content', dark ? '#0B1220' : '#0F4C5C');
+  }
+
+  getSavedTheme() {
+    // localStorage puede estar bloqueado (modo privado); entonces seguimos al sistema.
+    try {
+      return localStorage.getItem(THEME_STORAGE_KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  init() {
+    this.apply(this.root.dataset.theme);
+    this.button.hidden = false;
+    this.button.addEventListener('click', () => {
+      const next = this.root.dataset.theme === 'dark' ? 'light' : 'dark';
+      this.apply(next);
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, next);
+      } catch {
+        // Sin almacenamiento el cambio funciona igual, solo que no se recuerda.
+      }
+    });
+    // Si el visitante no ha elegido, acompañamos los cambios del sistema.
+    this.systemDark.addEventListener('change', (event) => {
+      if (!this.getSavedTheme()) this.apply(event.matches ? 'dark' : 'light');
+    });
+  }
+}
+
+
 /* ===== FUENTE: js/app.js ===== */
 /**
  * PUNTO DE ENTRADA. Lee este archivo después de README.md.
  * import reúne piezas independientes; export en cada archivo indica qué comparte.
- * Estos dos primeros imports sólo ejecutan los archivos de datos compartidos.
+ * Estos dos primeros imports solo ejecutan los archivos de datos compartidos.
  */
+
 
 
 
@@ -609,6 +660,7 @@ function startApp() {
   faqController.init();
   contactController.init();
   new NavigationController(contactController).init();
+  new ThemeController().init();
 
   // El año siempre refleja el reloj del dispositivo sin editar el footer cada enero.
   document.querySelector('#current-year').textContent = String(new Date().getFullYear());

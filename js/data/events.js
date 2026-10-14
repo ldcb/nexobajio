@@ -5,7 +5,7 @@
  *
  * Puente entre versiones: este archivo es JavaScript normal, sin import/export.
  * Puede cargarse con <script defer> desde file:// y también importarse por sus
- * efectos desde app.js. Sólo los datos usan este espacio global compartido;
+ * efectos desde app.js. Solo los datos usan este espacio global compartido;
  * modelos, vistas y controladores permanecen en módulos independientes.
  */
 globalThis.NexoBajioData = globalThis.NexoBajioData || {};
@@ -20,7 +20,7 @@ globalThis.NexoBajioData.events = [
     startsAt: '2026-11-07T11:00:00-06:00',
     timeZone: 'America/Mexico_City',
     location: 'Bajío · sede de ejemplo',
-    topic: 'Inteligencia Artificial',
+    topic: 'Inteligencia artificial',
     speaker: 'Especialista invitado · demostración',
     description: 'Explora usos cotidianos de la IA para organizar ideas, aprender y trabajar. Un primer acercamiento con ejemplos claros y espacio para tus preguntas.',
     audience: 'Personas curiosas, estudiantes y emprendedores. No necesitas experiencia previa.',
@@ -35,7 +35,7 @@ globalThis.NexoBajioData.events = [
     startsAt: '2026-11-14T10:00:00-06:00',
     timeZone: 'America/Mexico_City',
     location: 'En línea · sesión de ejemplo',
-    topic: 'Desarrollo Web',
+    topic: 'Desarrollo web',
     speaker: 'Persona facilitadora · demostración',
     description: 'Descubre cómo trabajan juntos HTML, CSS y JavaScript. Construye una página sencilla mientras compartes dudas y hallazgos con otras personas.',
     audience: 'Principiantes. Para realizar la práctica se propone llevar una computadora.',

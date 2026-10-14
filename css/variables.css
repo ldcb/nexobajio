@@ -20,8 +20,29 @@
   --color-success-soft: #E9F9F1;
   --color-focus: #08766B;
 
+  /* Superficies y detalles que cambian entre modo claro y oscuro. */
+  --color-bg: #FFFFFF; /* Fondo general de la página. */
+  --color-surface: #FFFFFF; /* Tarjetas, campos y paneles. */
+  --color-brand: #0F4C5C; /* Relleno de botones y bloques con texto blanco. */
+  --color-brand-hover: #0A3B49;
+  --color-header-bg: rgb(255 255 255 / 97%);
+  --color-notice-bg: #EBF6F3;
+  --color-notice-border: #BED6D1;
+  --color-event-1: #E5F1EE;
+  --color-event-2: #E8EFF7;
+  --color-event-3: #F4EDE1;
+  --color-date-bg: rgb(255 255 255 / 90%);
+  --color-date-border: rgb(15 76 92 / 8%);
+  --color-contact-bg: #EEF6F4;
+  --color-line-soft: #C8DDDA; /* Líneas decorativas suaves. */
+  --color-placeholder: #647386;
+  --color-invalid-bg: #FFFBFC;
+  --color-selection: #C7F2E8;
+  --color-back-border: #8AB8AF;
+  --color-footer-bg: #0F172A;
+
   /* Fuentes locales: no se descarga Google Fonts, y la página funciona sin internet.
-     Inter/Manrope se usan sólo si ya están instaladas; después viene la del sistema. */
+     Inter/Manrope se usan solo si ya están instaladas; después viene la del sistema. */
   --font-sans: 'Inter', 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* rem se basa en el tamaño de letra raíz: escala mejor al ampliar el texto.
@@ -35,4 +56,89 @@
   --radius-large: 2rem;
   --shadow-soft: 0 10px 32px rgb(15 76 92 / 5%);
   --transition-fast: 180ms ease;
+  color-scheme: light;
+}
+
+/*
+ * MODO OSCURO. Solo redefinimos variables: los componentes no cambian.
+ * data-theme lo coloca el script del <head> según la elección guardada o el sistema.
+ * La media query cubre el caso sin JavaScript respetando la preferencia del sistema.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-primary: #7DD3C7;
+    --color-accent: #2DD4BF;
+    --color-accent-dark: #5EEAD4;
+    --color-ink: #E8EEF5;
+    --color-text: #B4C2D0;
+    --color-muted: #96A5B6;
+    --color-soft: #0F1828;
+    --color-mint: #12343A;
+    --color-border: #22314A;
+    --color-field-border: #5B6B80;
+    --color-error: #FF8A9B;
+    --color-error-soft: #3A1620;
+    --color-success: #6EE7B7;
+    --color-success-soft: #0F2E25;
+    --color-focus: #5EEAD4;
+    --color-bg: #0B1220;
+    --color-surface: #111A2B;
+    --color-brand: #13606F;
+    --color-brand-hover: #17707F;
+    --color-header-bg: rgb(11 18 32 / 95%);
+    --color-notice-bg: #10282C;
+    --color-notice-border: #1F4A4E;
+    --color-event-1: #13302F;
+    --color-event-2: #172539;
+    --color-event-3: #2E2618;
+    --color-date-bg: rgb(11 18 32 / 70%);
+    --color-date-border: rgb(255 255 255 / 8%);
+    --color-contact-bg: #0D1A24;
+    --color-line-soft: #23384A;
+    --color-placeholder: #7C8B9C;
+    --color-invalid-bg: #2A1219;
+    --color-selection: #134E4A;
+    --color-back-border: #2F5A57;
+    --color-footer-bg: #070C17;
+    --shadow-soft: 0 10px 32px rgb(0 0 0 / 30%);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --color-primary: #7DD3C7;
+  --color-accent: #2DD4BF;
+  --color-accent-dark: #5EEAD4;
+  --color-ink: #E8EEF5;
+  --color-text: #B4C2D0;
+  --color-muted: #96A5B6;
+  --color-soft: #0F1828;
+  --color-mint: #12343A;
+  --color-border: #22314A;
+  --color-field-border: #5B6B80;
+  --color-error: #FF8A9B;
+  --color-error-soft: #3A1620;
+  --color-success: #6EE7B7;
+  --color-success-soft: #0F2E25;
+  --color-focus: #5EEAD4;
+  --color-bg: #0B1220;
+  --color-surface: #111A2B;
+  --color-brand: #13606F;
+  --color-brand-hover: #17707F;
+  --color-header-bg: rgb(11 18 32 / 95%);
+  --color-notice-bg: #10282C;
+  --color-notice-border: #1F4A4E;
+  --color-event-1: #13302F;
+  --color-event-2: #172539;
+  --color-event-3: #2E2618;
+  --color-date-bg: rgb(11 18 32 / 70%);
+  --color-date-border: rgb(255 255 255 / 8%);
+  --color-contact-bg: #0D1A24;
+  --color-line-soft: #23384A;
+  --color-placeholder: #7C8B9C;
+  --color-invalid-bg: #2A1219;
+  --color-selection: #134E4A;
+  --color-back-border: #2F5A57;
+  --color-footer-bg: #070C17;
+  --shadow-soft: 0 10px 32px rgb(0 0 0 / 30%);
+  color-scheme: dark;
 }

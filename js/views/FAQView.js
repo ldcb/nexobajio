@@ -34,7 +34,7 @@ export class FAQView {
   }
 
   setExpanded(id) {
-    // Sólo una respuesta permanece abierta. null cierra todas.
+    // Solo una respuesta permanece abierta. null cierra todas.
     this.container.querySelectorAll('[data-faq-id]').forEach((button) => {
       const expanded = button.dataset.faqId === id;
       button.setAttribute('aria-expanded', String(expanded));

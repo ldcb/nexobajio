@@ -1,7 +1,7 @@
 /**
  * PUNTO DE ENTRADA. Lee este archivo después de README.md.
  * import reúne piezas independientes; export en cada archivo indica qué comparte.
- * Estos dos primeros imports sólo ejecutan los archivos de datos compartidos.
+ * Estos dos primeros imports solo ejecutan los archivos de datos compartidos.
  */
 import './data/events.js';
 import './data/community.js';
@@ -14,6 +14,7 @@ import { EventController } from './controllers/EventController.js';
 import { FAQController } from './controllers/FAQController.js';
 import { ContactController } from './controllers/ContactController.js';
 import { NavigationController } from './controllers/NavigationController.js';
+import { ThemeController } from './controllers/ThemeController.js';
 
 function startApp() {
   // const evita reasignar la referencia. El contenido del objeto sí puede cambiar.
@@ -28,6 +29,7 @@ function startApp() {
   faqController.init();
   contactController.init();
   new NavigationController(contactController).init();
+  new ThemeController().init();
 
   // El año siempre refleja el reloj del dispositivo sin editar el footer cada enero.
   document.querySelector('#current-year').textContent = String(new Date().getFullYear());

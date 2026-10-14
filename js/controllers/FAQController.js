@@ -1,4 +1,4 @@
-/** CONTROLLER: conserva el id de la pregunta abierta; la vista sólo lo refleja. */
+/** CONTROLLER: conserva el id de la pregunta abierta; la vista solo lo refleja. */
 export class FAQController {
   constructor(model, view) {
     this.model = model;

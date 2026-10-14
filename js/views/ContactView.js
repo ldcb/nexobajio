@@ -19,7 +19,7 @@ export class ContactView {
       event.preventDefault(); // Evita recargar o enviar a una dirección inexistente.
       handler(this.getValues());
     });
-    // Sólo habilitamos enviar cuando el listener ya impide una navegación real.
+    // Solo habilitamos enviar cuando el listener ya impide una navegación real.
     this.form.querySelector('[type="submit"]').disabled = false;
   }
 
@@ -49,7 +49,7 @@ export class ContactView {
   }
 
   showSuccess() {
-    // No usamos fetch, almacenamiento local ni correos: sólo se simula la confirmación.
+    // No usamos fetch, almacenamiento local ni correos: solo se simula la confirmación.
     this.status.className = 'form-status is-success';
     this.status.textContent = '¡Validación correcta! Esta es una demostración: tu mensaje no se envió ni se guardó.';
     this.status.focus({ preventScroll: true });

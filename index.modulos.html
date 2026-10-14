@@ -22,6 +22,18 @@
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <!-- Aplicamos el tema antes de pintar la página para evitar un destello de colores.
+       Usa la elección guardada o, si no existe, la preferencia del sistema. -->
+  <script>
+    (function () {
+      var theme = null;
+      try { theme = localStorage.getItem('nexobajio-theme'); } catch (error) { /* Almacenamiento bloqueado. */ }
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
 </head>
 <body>
   <!-- Este enlace aparece al recibir foco y permite saltar el menú con teclado. -->
@@ -80,6 +92,9 @@
     <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
     <!-- Símbolo globe: se reutiliza con <use> para no repetir su geometría. -->
     <symbol id="icon-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></symbol>
+    <!-- Símbolos sun y moon: indican el modo de color que se activará. -->
+    <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></symbol>
     <!-- Símbolo target: se reutiliza con <use> para no repetir su geometría. -->
     <symbol id="icon-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
   </svg>
@@ -88,6 +103,11 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="#inicio" aria-label="NexoBajío, ir al inicio"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="12" fill="#0F4C5C"/><path d="M12 28V12l16 16V12" fill="none" stroke="#6CE4D1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="white"/><circle cx="28" cy="28" r="3" fill="white"/></svg><span>NexoBajío<span class="brand-dot">.</span></span></a>
+      <!-- aria-pressed indica si el modo oscuro está activo. hidden: sin JS no tendría efecto. -->
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Modo oscuro" aria-pressed="false" title="Cambiar modo de color" hidden>
+        <svg class="icon icon-moon" aria-hidden="true" focusable="false"><use href="#icon-moon"></use></svg>
+        <svg class="icon icon-sun" aria-hidden="true" focusable="false"><use href="#icon-sun"></use></svg>
+      </button>
       <!-- button ejecuta una acción. aria-controls enlaza el botón con su menú. -->
       <button id="menu-button" class="menu-button" type="button" aria-label="Abrir menú" aria-controls="main-navigation" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -112,7 +132,7 @@
       <div class="container hero-grid">
         <div class="hero-content">
           <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>Comunidad tecnológica · Bajío</p>
-          <h1 id="hero-title">Conectamos<br>personas con<br><span>tecnología.</span></h1>
+          <h1 id="hero-title">Conectamos<br>personas con<br><span>tecnología</span></h1>
           <p class="hero-description">NexoBajío es una comunidad donde aprendemos, compartimos y utilizamos la tecnología para resolver problemas reales.</p>
           <div class="button-row">
             <a class="button button-primary" href="#eventos">Conoce nuestros eventos<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a>
@@ -136,10 +156,10 @@
       <div class="container about-grid">
         <div data-reveal>
           <p class="eyebrow">01 / El punto de encuentro</p>
-          <h2 id="about-title">La tecnología empieza<br>con las personas.</h2>
+          <h2 id="about-title">La tecnología empieza<br>con las personas</h2>
         </div>
         <div class="about-copy" data-reveal>
-          <p>NexoBajío es una comunidad tecnológica nacida en el Bajío con el objetivo de acercar las Tecnologías de la Información a estudiantes, profesionales, empresas y personas interesadas en aprender y utilizar tecnología.</p>
+          <p>NexoBajío es una comunidad tecnológica nacida en el Bajío con el objetivo de acercar las tecnologías de la información a estudiantes, profesionales, empresas y personas interesadas en aprender y utilizar tecnología.</p>
           <p>Creemos en las preguntas que abren puertas, el conocimiento que se comparte y las conexiones que nos ayudan a resolver problemas cotidianos, profesionales y empresariales.</p>
           <div class="connection-line" aria-label="Personas conectadas con conocimiento y tecnología"><span>Personas</span><span aria-hidden="true">↔</span><span>Conocimiento</span><span aria-hidden="true">↔</span><span>Tecnología</span></div>
         </div>
@@ -149,7 +169,7 @@
     <section id="que-hacemos" class="section section-soft" aria-labelledby="services-title">
       <div class="container">
         <div class="section-heading" data-reveal>
-          <div><p class="eyebrow">02 / Lo que nos mueve</p><h2 id="services-title">Aprender. Compartir. Conectar.</h2></div>
+          <div><p class="eyebrow">02 / Lo que nos mueve</p><h2 id="services-title">Aprender, compartir, conectar</h2></div>
           <p>¿Qué hacemos? Creamos espacios donde una pregunta puede convertirse en tu siguiente gran idea.</p>
         </div>
         <div class="services-grid">
@@ -196,14 +216,14 @@
     <section id="tecnologia" class="section section-anchor" aria-labelledby="technology-title">
       <div class="container">
         <div class="section-heading" data-reveal>
-          <div><p class="eyebrow">03 / Áreas de tecnología</p><h2 id="technology-title">Un mundo por descubrir.</h2></div>
+          <div><p class="eyebrow">03 / Áreas de tecnología</p><h2 id="technology-title">Un mundo por descubrir</h2></div>
           <p>Encuentra ese tema que despierta tu curiosidad. No necesitas saber por dónde empezar: para eso estamos.</p>
         </div>
         <div class="topics-grid">
           <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
-          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-spark"></use></svg><div><h3>Inteligencia Artificial</h3><p>De la curiosidad a los usos cotidianos.</p></div></article>
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-spark"></use></svg><div><h3>Inteligencia artificial</h3><p>De la curiosidad a los usos cotidianos.</p></div></article>
           <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
-          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-window"></use></svg><div><h3>Desarrollo Web</h3><p>Sitios y experiencias para conectar.</p></div></article>
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-window"></use></svg><div><h3>Desarrollo web</h3><p>Sitios y experiencias para conectar.</p></div></article>
           <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
           <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-code"></use></svg><div><h3>Programación</h3><p>Ideas que se convierten en soluciones.</p></div></article>
           <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
@@ -215,7 +235,7 @@
           <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
           <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-monitor"></use></svg><div><h3>Software</h3><p>Herramientas para trabajar mejor.</p></div></article>
           <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
-          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-target"></use></svg><div><h3>Marketing Digital</h3><p>Acerca tus ideas a más personas.</p></div></article>
+          <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-target"></use></svg><div><h3>Marketing digital</h3><p>Acerca tus ideas a más personas.</p></div></article>
           <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
           <article class="topic-card"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-chart"></use></svg><div><h3>Datos</h3><p>Información para entender y decidir.</p></div></article>
           <!-- Cada tarjeta usa el mismo estilo; cambia título, descripción o símbolo. -->
@@ -233,7 +253,7 @@
     <section id="eventos" class="section section-soft section-anchor" aria-labelledby="events-title">
       <div class="container">
         <div class="section-heading" data-reveal>
-          <div><p class="eyebrow">04 / Nos vemos para aprender</p><h2 id="events-title">Próximos eventos.</h2></div>
+          <div><p class="eyebrow">04 / Nos vemos para aprender</p><h2 id="events-title">Próximos eventos</h2></div>
           <p>Charlas que inspiran, talleres para practicar y encuentros para conocer a tu comunidad.</p>
         </div>
         <p class="notice" id="events-demo-notice">DATOS DE DEMOSTRACIÓN · Los eventos marcados DEMO son ejemplos, no convocatorias reales.</p>
@@ -270,7 +290,7 @@
           <!-- data-contact-subject guarda el asunto que el controlador llevará al formulario. -->
           <button class="help-chip" type="button" data-contact-subject="Orientación: Desarrollo web">Desarrollo web<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
           <!-- data-contact-subject guarda el asunto que el controlador llevará al formulario. -->
-          <button class="help-chip" type="button" data-contact-subject="Orientación: Inteligencia Artificial">Inteligencia Artificial<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
+          <button class="help-chip" type="button" data-contact-subject="Orientación: Inteligencia artificial">Inteligencia artificial<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
           <!-- data-contact-subject guarda el asunto que el controlador llevará al formulario. -->
           <button class="help-chip" type="button" data-contact-subject="Orientación: Seguridad digital">Seguridad digital<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></button>
           <!-- data-contact-subject guarda el asunto que el controlador llevará al formulario. -->
@@ -291,7 +311,7 @@
         </div>
         <div data-reveal>
           <p class="eyebrow">06 / Una comunidad abierta</p>
-          <h2 id="community-title">Distintos caminos.<br>La misma curiosidad.</h2>
+          <h2 id="community-title">Distintos caminos,<br>la misma curiosidad</h2>
           <p class="community-quote">“No importa cuánto sepas de tecnología. Siempre hay algo que aprender y algo que compartir.”</p>
           <ul class="profile-list">
           <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-check"></use></svg><span>Estudiantes</span></li>
@@ -309,7 +329,7 @@
     <section id="participa" class="section section-soft" aria-labelledby="participate-title">
       <div class="container">
         <div class="section-heading" data-reveal>
-          <div><p class="eyebrow">07 / Da el siguiente paso</p><h2 id="participate-title">Hay muchas formas de sumar.</h2></div>
+          <div><p class="eyebrow">07 / Da el siguiente paso</p><h2 id="participate-title">Hay muchas formas de sumar</h2></div>
           <p>Ven con una pregunta, una idea o algo que quieras compartir.</p>
         </div>
         <div class="participation-grid">
@@ -324,7 +344,7 @@
 
     <section id="preguntas" class="section" aria-labelledby="faq-title">
       <div class="container faq-layout">
-        <div data-reveal><p class="eyebrow">08 / Antes de sumarte</p><h2 id="faq-title">Buenas preguntas.<br>Respuestas claras.</h2><p>Esto es lo que quizá te estés preguntando sobre NexoBajío.</p><a class="text-link" href="#contacto">Tengo otra pregunta<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a></div>
+        <div data-reveal><p class="eyebrow">08 / Antes de sumarte</p><h2 id="faq-title">Buenas preguntas,<br>respuestas claras</h2><p>Esto es lo que quizá te estés preguntando sobre NexoBajío.</p><a class="text-link" href="#contacto">Tengo otra pregunta<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow"></use></svg></a></div>
         <!-- FAQView genera botones accesibles y paneles a partir de community.js. -->
         <div id="faq-list" class="faq-list"></div>
         <noscript><p>Activa JavaScript para desplegar las preguntas frecuentes.</p></noscript>
@@ -335,7 +355,7 @@
       <div class="container contact-layout">
         <div class="contact-intro" data-reveal>
           <p class="eyebrow">09 / Hablemos</p>
-          <h2 id="contact-title">Tu próxima conexión<br>empieza aquí.</h2>
+          <h2 id="contact-title">Tu próxima conexión<br>empieza aquí</h2>
           <p>¿Una duda, una propuesta o ganas de sumarte? Nos gustaría conocer tu idea.</p>
           <div class="contact-detail"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-pin"></use></svg><span>Desde el Bajío, para conectar contigo.</span></div>
           <div class="contact-detail"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg><div><p data-contact-email>hola@nexobajio.example</p><small data-contact-demo>Correo de ejemplo, aún no habilitado.</small></div></div>
